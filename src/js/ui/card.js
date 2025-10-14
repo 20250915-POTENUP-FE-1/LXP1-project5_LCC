@@ -1,17 +1,20 @@
 if (!localStorage.getItem("courses")) {
-  const initialCourses = [{title: "파이썬 강좌1", name: "code - code", level: "하"}, {
-    title: "자바스크립트 입문",
-    name: "JS - Basic",
-    level: "중"
-  }, {title: "리액트 심화", name: "React - Advanced", level: "상"},];
+  const initialCourses = [
+    { title: "파이썬 강좌1", category: "code - code", level: "하" },
+    {
+      title: "자바스크립트 입문",
+      category: "JS - Basic",
+      level: "중",
+    },
+    { title: "리액트 심화", category: "React - Advanced", level: "상" },
+  ];
   localStorage.setItem("courses", JSON.stringify(initialCourses));
 }
 
 const storedCourses = JSON.parse(localStorage.getItem("courses")) || [];
 
 storedCourses.forEach((course, i) => {
-  const a = document.createElement("a");
-  a.href = "/page/detail/detail.html";
+  const a = document.createElement("button");
   a.className = "card";
   a.id = `card-${i}`;
   a.title = "클릭시 디테일 페이지로 전이";
@@ -25,6 +28,14 @@ storedCourses.forEach((course, i) => {
       <div class="card-row"><h5>난이도:</h5><p>${course.level}</p></div>
     </div>
   `;
+
+  a.addEventListener("click", () => {
+    document.getElementById("lecture-title").value = course.title;
+    document.getElementById("category").value = course.name;
+    document.getElementById("level").value = course.level;
+
+    document.getElementById("previewLecture").style.display = "flex";
+  });
 
   document.getElementById("card-container").appendChild(a);
 });
