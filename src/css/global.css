@@ -1,6 +1,7 @@
 @import './layout/header.css';
 @import './layout/sidebar.css';
 @import './ui/card.css';
+@import './ui/modal.css';
 
 body {
   padding: 0;
@@ -12,6 +13,7 @@ html, body {
 }
 
 .container {
+  overflow-y: auto;
   height: 100%;
 }
 
@@ -21,9 +23,10 @@ html, body {
   width: calc(100% - 300px);
   margin-top: 64px;
   margin-left: 300px;
+  overflow-y: auto;
 }
 
-.card-container {
+#card-container {
   padding: 16px;
 }
 
