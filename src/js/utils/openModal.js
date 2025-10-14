@@ -1,8 +1,23 @@
-document.querySelector("#lecture-create").addEventListener("click", (e) => {
-  if (e.target.classList.contains("modal-toggle-btn")) {
-    document.querySelector(`#${e.target.dataset.modalTarget}`).style.display = 'flex';
-  }
-});
+export function openModal() {
+  document.addEventListener("click", (e) => {
+    // 클릭된 요소나 부모 중에서 .modal-toggle-btn 찾기
+    localStorage.setItem("thumbnailImage", null);
+    const btn = e.target.closest(".modal-toggle-btn");
+    if (!btn) return;
+
+    // 버튼에 data-modal-target 속성 있는지 확인
+    const targetId = btn.dataset.modalTarget;
+    const modal = document.getElementById(targetId);
+
+    if (modal) {
+      modal.style.display = "flex";
+    } else {
+      console.warn(`⚠️ 모달을 찾을 수 없습니다: #${targetId}`);
+    }
+  });
+}
+
+openModal();
 
 document.querySelectorAll('.modal').forEach((modal) => {
   // 모달 내의 x 클릭시 모달 닫기

@@ -26,10 +26,6 @@ html, body {
   overflow-y: auto;
 }
 
-#card-container {
-  padding: 16px;
-}
-
 a {
   text-decoration: none;
 }

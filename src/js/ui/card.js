@@ -5,21 +5,29 @@ if (!localStorage.getItem("courses")) {
 
 const storedCourses = JSON.parse(localStorage.getItem("courses")) || [];
 
-storedCourses.forEach((course, i) => {
-  const a = cardTemplate(course, i);
-  document.getElementById("card-container").appendChild(a);
-});
+if (storedCourses.length === 0) {
+  const p = document.createElement("p");
+  p.innerHTML
+  return p;
+} else {
+  storedCourses.forEach((course, i) => {
+    const a = cardTemplate(course, i);
+    document.getElementById("card-container").appendChild(a);
+  });
 
-export function cardTemplate(course, i) {
-  const a = document.createElement("a");
-  a.href = "/page/detail/detail.html";
-  a.className = "card";
-  a.id = `card-${i}`;
-  a.title = "클릭시 디테일 페이지로 전이";
-  a.role = "button";
+  export function cardTemplate(course, i) {
+    const a = document.createElement("a");
+    a.href = "/page/detail/detail.html";
+    a.className = "card";
+    a.id = `card-${i}`;
+    a.title = "클릭시 디테일 페이지로 전이";
+    a.role = "button";
 
-  a.innerHTML = `
-    <div class="card-thumbnail">이곳이 이미지 넣는 곳</div>
+    a.innerHTML = `
+    <div class="card-thumbnail ">
+      <img src="${course.thumbnail}">
+    
+    </div>
     <div class="card-text">
       <div class="card-row"><h5>강좌명:</h5><p>${course.lectureName}</p></div>
       <div class="card-row"><h5>소개글:</h5><p>${course.introduce}</p></div>
@@ -29,5 +37,6 @@ export function cardTemplate(course, i) {
       </div>
     </div>
   `;
-  return a;
+    return a;
+  }
 }
