@@ -1,10 +1,15 @@
-const courses = [
-  {title: "파이썬 강좌1", name: "code - code", level: "하"},
-  {title: "자바스크립트 입문", name: "JS - Basic", level: "중"},
-  {title: "리액트 심화", name: "React - Advanced", level: "상"},
-];
+if (!localStorage.getItem("courses")) {
+  const initialCourses = [{title: "파이썬 강좌1", name: "code - code", level: "하"}, {
+    title: "자바스크립트 입문",
+    name: "JS - Basic",
+    level: "중"
+  }, {title: "리액트 심화", name: "React - Advanced", level: "상"},];
+  localStorage.setItem("courses", JSON.stringify(initialCourses));
+}
 
-courses.forEach((course, i) => {
+const storedCourses = JSON.parse(localStorage.getItem("courses")) || [];
+
+storedCourses.forEach((course, i) => {
   const a = document.createElement("a");
   a.href = "/page/detail/detail.html";
   a.className = "card";
