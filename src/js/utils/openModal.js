@@ -1,26 +1,29 @@
-export function openModal() {
-  document.addEventListener("click", (e) => {
-    // 클릭된 요소나 부모 중에서 .modal-toggle-btn 찾기
-    localStorage.setItem("thumbnailImage", null);
-    const btn = e.target.closest(".modal-toggle-btn");
-    if (!btn) return;
+import {createLectureModal} from "../ui/cardModal.js";
 
-    // 버튼에 data-modal-target 속성 있는지 확인
-    const targetId = btn.dataset.modalTarget;
-    const modal = document.getElementById(targetId);
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".modal-toggle-btn");
+  if (!btn) return;
 
-    if (modal) {
-      modal.style.display = "flex";
-    } else {
-      console.warn(`⚠️ 모달을 찾을 수 없습니다: #${targetId}`);
-    }
-  });
-}
+  // 버튼에 data-modal-target 속성 있는지 확인
+  const targetId = btn.dataset.modalTarget;
+  console.log(targetId)
+  if (targetId.includes("detail")) {
+    createLectureModal(targetId);
+  }
+  const modal = document.getElementById(targetId);
 
-openModal();
+  if (modal) {
+    modal.style.display = "flex";
+  } else {
+    console.warn(`모달을 찾을 수 없습니다: #${targetId}`);
+  }
+});
 
 document.querySelectorAll('.modal').forEach((modal) => {
-  // 모달 내의 x 클릭시 모달 닫기
+  settingCloseModal(modal)
+});
+
+export function settingCloseModal(modal) {
   modal.querySelector('.modal-close')
     .addEventListener('click', () => closeModal(modal));
   // 모달 내의 취소 버튼 클릭시 모달 닫기
@@ -30,7 +33,7 @@ document.querySelectorAll('.modal').forEach((modal) => {
   modal.addEventListener('click', function (e) {
     e.target === modal && closeModal(modal);
   });
-});
+}
 
 function closeModal(modal) {
   modal.style.display = 'none';

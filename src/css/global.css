@@ -1,7 +1,7 @@
 @import './layout/header.css';
 @import './layout/sidebar.css';
-@import './ui/card.css';
 @import './ui/modal.css';
+@import './ui/card.css';
 
 body {
   padding: 0;
