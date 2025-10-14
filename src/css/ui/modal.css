@@ -24,11 +24,14 @@
 .modal-content {
   background: white;
   border-radius: 16px;
-  width: 90%;
-  max-width: 450px;
+  width: 100%;
+  height: calc(100% + 32px);
+  max-width: 960px;
+  max-height: 80vh;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
   animation: slideIn 0.3s ease;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 @keyframes slideIn {
@@ -47,7 +50,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  min-height: 48px;
 }
 
 .modal-header h3 {
@@ -79,11 +82,18 @@
 }
 
 .modal-form {
-  padding: 1.5rem 2rem 2rem;
+  position: relative;
+  height: calc(100% - 102px);
+  overflow-y: auto;
 }
 
 .form-group {
   margin-bottom: 1.5rem;
+  padding: 0.5rem 2rem;
+}
+
+.form-group label {
+  margin-bottom: 0.2rem !important;
 }
 
 .form-group label {
@@ -104,6 +114,7 @@
   background: #ffffff;
   transition: all 0.3s ease;
   box-sizing: border-box;
+  color: #757575;
 }
 
 .form-input:focus {
@@ -118,6 +129,7 @@
   gap: 0.75rem;
   justify-content: flex-end;
   margin-top: 2rem;
+  padding: 0 2rem;
 }
 
 .cancel-btn,
@@ -153,6 +165,18 @@
   background: #5855eb;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.category {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 /* 모달 반응형 디자인 */
