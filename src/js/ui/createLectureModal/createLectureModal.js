@@ -2,7 +2,7 @@ import {openFileInput} from "../../utils/file/openFileInput.js";
 import {fileInsert} from "../../utils/file/fileInsert.js";
 import {submit} from "./feature/submit.js";
 import {settingCloseModal} from "../../utils/openModal.js";
-import {categoryExceptKeyAll} from "../category/category.js";
+import {categoryExceptKeyAll} from "../category/category-data.js";
 
 document
   .getElementsByClassName("modals")
