@@ -1,3 +1,10 @@
+/**
+ * 파일을 삽입하는 함수
+ * @param noticeBtn {HTMLElement}
+ * @param fileInput {HTMLElement}
+ * @param preview {HTMLElement}
+ * @returns void
+ */
 export function fileInsert(noticeBtn, fileInput, preview) {
   fileInput.addEventListener("change", (e) => {
     const file = e.target.files[0];

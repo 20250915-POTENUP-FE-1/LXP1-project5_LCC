@@ -1,17 +1,19 @@
-import {settingCloseModal} from "../utils/openModal.js";
+import {settingCloseModal} from "../../utils/openModal.js";
+import {getTrailingNumber} from "../../utils/getTrailingNumber.js";
 
-export function createLectureModal(i) {
+/**
+ *
+ * @param i
+ */
+export function detailLectureModal(i) {
   const clm = document.createElement("div");
-  const lastChar = i.charAt(i.length - 1);
-  console.log(lastChar)
+  const lastChar = getTrailingNumber(i);
   const name = JSON.parse(localStorage.getItem("courses"));
-  let dd;
+  let data;
   name.forEach((course) => {
-    console.log(course.id)
-    if (course.id == lastChar) {
-      dd = course;
-    }
+    if (course.id == lastChar) data = course;
   })
+
   clm.innerHTML = `
 <div id="${i}" class="modal">
   <div class="modal-content">
@@ -35,7 +37,6 @@ export function createLectureModal(i) {
     </form>
   </div>
 </div>
-
   `;
   document.getElementsByClassName("modals").item(0).appendChild(clm);
   const modalId = document.getElementById(i);

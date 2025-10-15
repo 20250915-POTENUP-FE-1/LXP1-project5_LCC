@@ -1,4 +1,4 @@
-import {createLectureModal} from "../ui/cardModal.js";
+import {detailLectureModal} from "../ui/detailLectureModal/detailLectureModal.js";
 
 document.addEventListener("click", (e) => {
   const btn = e.target.closest(".modal-toggle-btn");
@@ -6,10 +6,10 @@ document.addEventListener("click", (e) => {
 
   // 버튼에 data-modal-target 속성 있는지 확인
   const targetId = btn.dataset.modalTarget;
-  console.log(targetId)
-  if (targetId.includes("detail")) {
-    createLectureModal(targetId);
-  }
+
+  // todo 동적 모달은 생성은 해야 하는데 고민 해야함
+  if (targetId.includes("detail")) detailLectureModal(targetId);
+
   const modal = document.getElementById(targetId);
 
   if (modal) {
@@ -19,10 +19,11 @@ document.addEventListener("click", (e) => {
   }
 });
 
-document.querySelectorAll('.modal').forEach((modal) => {
-  settingCloseModal(modal)
-});
-
+/**
+ * [모달을 닫는 함수를 셋팅]
+ * @param modal {HTMLElement}
+ * @returns void
+ * */
 export function settingCloseModal(modal) {
   modal.querySelector('.modal-close')
     .addEventListener('click', () => closeModal(modal));
@@ -35,6 +36,11 @@ export function settingCloseModal(modal) {
   });
 }
 
+/**
+ * 모달을 닫는 함수
+ * @param modal {HTMLElement}
+ * @returns void
+ * */
 function closeModal(modal) {
   modal.style.display = 'none';
   if (modal.querySelectorAll("form")) {
