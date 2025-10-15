@@ -10,7 +10,6 @@
 
 <div class="container">
   <div class="main-container">
-
     <section id="section-header" class="section-header"
              style="display: flex; flex-direction: column; justify-content: space-between; align-items: end; padding: 11px;">
       <button
@@ -30,13 +29,13 @@
   ">
         <p>MyPage - 강좌</p>
         <nav id="category-nav" class="">
-          <ul id="category-list">
+          <ul id="category-list"></ul>
 
-          </ul>
+          <div id="date-order-select">
+          </div>
         </nav>
       </div>
     </section>
-
     <section id="card-container"></section>
   </div>
   <div class="modals"></div>
@@ -49,5 +48,6 @@
 <script type="module" src="src/js/utils/openModal.js"></script>
 <script type="module" src="src/js/ui/category/category.js"></script>
 <script type="module" src="src/js/ui/card-list/cardList.js"></script>
+<script type="module" src="src/js/ui/date-order-select/dateOrderSelect.js"></script>
 </body>
 </html>

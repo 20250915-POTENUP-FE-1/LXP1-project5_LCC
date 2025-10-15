@@ -27,7 +27,7 @@ function init() {
 
     // 2) url에 키 - 값 반영
     const key = li.dataset.key;
-    setUrlParams(key)
+    setUrlParams('category', key)
 
     // 3) 클릭한 것만 활성화
     li.classList.add('is-active');
@@ -53,7 +53,6 @@ export async function categoryTemplate(value) {
   const chip = doc.querySelector(".category-chip");
 
   const category = await getUrlParams('category');
-  console.log(chip);
 
   chip.id = value.key;
   chip.textContent = value.value;

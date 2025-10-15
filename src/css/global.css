@@ -3,6 +3,7 @@
 @import './ui/modal.css';
 @import './ui/card.css';
 @import "./ui/category.css";
+@import "./ui/date-order-select.css";
 
 body {
   padding: 0;
