@@ -17,7 +17,6 @@ export function submit(form, modal) {
     const introduce = document.getElementById("introduce").value.trim();
     const thumbnail = document.getElementById("previewImage").src;
 
-    console.log(localStorage.getItem("courses"))
     const id = JSON.parse(localStorage.getItem("courses")).length ?? 0;
 
     if (!lectureName || !category || !level || !introduce) {
