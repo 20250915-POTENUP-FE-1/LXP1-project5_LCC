@@ -1,5 +1,6 @@
 import {openFileInput} from "../../utils/file/openFileInput.js";
 import {fileInsert} from "../../utils/file/fileInsert.js";
+import {cardTemplate} from "../card/card.js";
 
 document.getElementsByClassName("modals").item(0).appendChild(await createLectureModal());
 
@@ -23,10 +24,6 @@ openFileInput(noticeBtn, fileInput)
 
 // 파일 넣는 함수
 fileInsert(noticeBtn, fileInput, preview)
-
-if (!localStorage.getItem("courses")) {
-  localStorage.setItem("courses", JSON.stringify([]));
-}
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault(); // 기본 새로고침 방지
