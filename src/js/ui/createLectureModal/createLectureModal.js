@@ -3,7 +3,10 @@ import {fileInsert} from "../../utils/file/fileInsert.js";
 import {submit} from "./feature/submit.js";
 import {settingCloseModal} from "../../utils/openModal.js";
 
-document.getElementsByClassName("modals").item(0).appendChild(await createLectureModal());
+document
+  .getElementsByClassName("modals")
+  .item(0)
+  .appendChild(await createLectureModal());
 
 /**
  * 강의 생성 모달을 만드는 함수
@@ -13,9 +16,9 @@ async function createLectureModal() {
   const res = await fetch('/src/js/ui/createLectureModal/createLectureModalTemplate.html');
   const htmlText = await res.text();
 
-  const doc = new DOMParser().parseFromString(htmlText, 'text/html');
+  const doc = new DOMParser().parseFromString(htmlText, "text/html");
 
-  return doc.querySelector('#createLectureModal');
+  return doc.querySelector("#createLectureModal");
 }
 
 const noticeBtn = document.getElementById("thumbnail-notice");
@@ -28,10 +31,10 @@ const form = modal.querySelector("#create-form");
 settingCloseModal(modal);
 
 // 파일 클릭
-openFileInput(noticeBtn, fileInput)
+openFileInput(noticeBtn, fileInput);
 
 // 파일 넣는 함수
-fileInsert(noticeBtn, fileInput, preview)
+fileInsert(noticeBtn, fileInput, preview);
 
 // 전송
 submit(form, modal)
