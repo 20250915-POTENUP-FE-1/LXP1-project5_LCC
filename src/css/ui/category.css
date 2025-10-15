@@ -1,0 +1,43 @@
+#category-nav {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* 가로 나열 리스트 */
+#category-list {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: end;
+  flex-wrap: nowrap;
+}
+
+/* 버튼 스타일(li) */
+.category-chip {
+  padding: 5px 20px;
+  border-radius: 999px;
+  background: #f7f7f7;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  outline: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.category-chip:hover {
+  background: #ececec;
+}
+
+.category-chip:focus-visible {
+  border-color: #94a3b8; /* slate-400 느낌 */
+  box-shadow: 0 0 0 2px rgba(148, 163, 184, 0.35);
+}
+
+/* 활성 상태(선택됨) */
+.is-active {
+  background: #e0e7ff; /* indigo-100 느낌 */
+  border-color: #a5b4fc; /* indigo-300 느낌 */
+}

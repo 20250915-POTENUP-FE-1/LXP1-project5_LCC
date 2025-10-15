@@ -2,6 +2,7 @@
 @import './layout/sidebar.css';
 @import './ui/modal.css';
 @import './ui/card.css';
+@import "./ui/category.css";
 
 body {
   padding: 0;
@@ -40,4 +41,10 @@ p {
 
 input[type="file"] {
   display: none; /* 기본 input은 숨김 */
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }

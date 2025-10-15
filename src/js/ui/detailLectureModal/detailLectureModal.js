@@ -19,20 +19,6 @@ export async function detailLectureModal(i) {
   const lastNum = getTrailingNumber(i);
 
   const course = getStoredCourses().find(c => String(c.id) === String(lastNum));
-  if (course) {
-    const $ = (sel) => /** @type {HTMLInputElement|null} */ (modalEl.querySelector(sel));
-    const lectureName = $('#lecture-name');
-    const introduce = $('#introduce');
-    const level = $('#level');
-    const category = $('#category');
-    const thumbImg = /** @type {HTMLImageElement|null} */ (modalEl.querySelector('#previewImage'));
-
-    if (lectureName) lectureName.value = course.lectureName ?? '';
-    if (introduce) introduce.value = course.introduce ?? '';
-    if (level) level.value = course.level ?? '';
-    if (category) category.value = course.category ?? '';
-    if (thumbImg) thumbImg.src = course.thumbnail ?? '';
-  }
 
   document.getElementsByClassName("modals").item(0).appendChild(modalEl);
   const modalId = document.getElementById(i);

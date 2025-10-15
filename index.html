@@ -11,9 +11,8 @@
 <div class="container">
   <div class="main-container">
 
-    <section id="button-container"
-             style="display: flex; justify-content: space-between; align-items: center; padding: 11px;">
-      <p>MyPage - 강좌</p>
+    <section id="section-header" class="section-header"
+             style="display: flex; flex-direction: column; justify-content: space-between; align-items: end; padding: 11px;">
       <button
           style="border: 1px solid #000; padding: 6px 18px; border-radius: 10px; background: #D9D9D9; cursor: pointer;"
           class="modal-toggle-btn"
@@ -21,10 +20,24 @@
           id="lecture-create">
         등록
       </button>
+      <div style="
+    display:grid;
+    grid-template-columns: 40% 60%;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    margin-top: 10px;
+  ">
+        <p>MyPage - 강좌</p>
+        <nav id="category-nav" class="">
+          <ul id="category-list">
+
+          </ul>
+        </nav>
+      </div>
     </section>
 
-    <section id="card-container">
-    </section>
+    <section id="card-container"></section>
   </div>
   <div class="modals"></div>
 </div>
@@ -34,5 +47,6 @@
 <script type="module" src="src/js/ui/card/card.js"></script>
 <script type="module" src="src/js/ui/createLectureModal/createLectureModal.js"></script>
 <script type="module" src="src/js/utils/openModal.js"></script>
+<script type="module" src="src/js/ui/category/category.js"></script>
 </body>
 </html>
