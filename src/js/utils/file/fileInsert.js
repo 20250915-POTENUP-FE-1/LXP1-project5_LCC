@@ -9,12 +9,12 @@ export function fileInsert(noticeBtn, fileInput, preview) {
   fileInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    // if (file.size > 100 * 1024) {
-    //   alert(`파일 크기가 ${(file.size / 1024).toFixed(1)}KB 입니다. 100KB 이하만 업로드 가능합니다.`);
-    //   e.target.value = "";
-    //   preview.innerHTML = "";
-    //   return;
-    // }
+    if (file.size > 100 * 1024) {
+      alert(`파일 크기가 ${(file.size / 1024).toFixed(1)}KB 입니다. 100KB 이하만 업로드 가능합니다.`);
+      e.target.value = "";
+      preview.innerHTML = "";
+      return;
+    }
 
     const reader = new FileReader();
 
