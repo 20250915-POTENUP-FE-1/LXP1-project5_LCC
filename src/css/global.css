@@ -3,18 +3,33 @@
 @import './ui/modal.css';
 @import './ui/card.css';
 
+:root {         /* Pretendard - 폰트 전역 설정. */
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, 
+               system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+               "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+               "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+
+
+
 body {
+  background-color: #F7F8FF;  /* 최종 배경색 */
   padding: 0;
   margin: 0;
 }
 
 html, body {
   height: 100%;
+  margin: 0;               /* 기본 여백 제거 */
+  min-height: 100vh;       /* 화면 전체 덮기 */
+  font-family: var(--font-sans); /* Pretendard - 폰트 전역 설정. */
 }
 
 .container {
   overflow-y: auto;
   height: 100%;
+  background: transparent;
 }
 
 .main-container {
@@ -29,6 +44,8 @@ html, body {
 a {
   text-decoration: none;
 }
+
+
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
