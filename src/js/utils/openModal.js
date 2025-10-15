@@ -1,6 +1,6 @@
 import {detailLectureModal} from "../ui/detailLectureModal/detailLectureModal.js";
 
-document.addEventListener("click", (e) => {
+document.addEventListener("click", async (e) => {
   const btn = e.target.closest(".modal-toggle-btn");
   if (!btn) return;
 
@@ -8,7 +8,7 @@ document.addEventListener("click", (e) => {
   const targetId = btn.dataset.modalTarget;
 
   // todo 동적 모달은 생성은 해야 하는데 고민 해야함
-  if (targetId.includes("detail")) detailLectureModal(targetId);
+  if (targetId.includes("detail")) await detailLectureModal(targetId);
 
   const modal = document.getElementById(targetId);
 

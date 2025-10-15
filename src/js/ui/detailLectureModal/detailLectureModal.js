@@ -1,44 +1,40 @@
 import {settingCloseModal} from "../../utils/openModal.js";
 import {getTrailingNumber} from "../../utils/getTrailingNumber.js";
+import {getStoredCourses} from "../../store/storage.js";
 
 /**
- *
- * @param i
+ * detail 모달을 서버 템플릿으로 만들고 id만 동적으로 교체해 반환
+ * @param {string} i - 최종으로 부여할 모달 id (예: detail-12)
+ * @returns {Promise<HTMLDivElement>}
  */
-export function detailLectureModal(i) {
-  const clm = document.createElement("div");
-  const lastChar = getTrailingNumber(i);
-  const name = JSON.parse(localStorage.getItem("courses"));
-  let data;
-  name.forEach((course) => {
-    if (course.id == lastChar) data = course;
-  })
+export async function detailLectureModal(i) {
+  const res = await fetch('/src/js/ui/detailLectureModal/detailLectureModalTemplate.html');
 
-  clm.innerHTML = `
-<div id="${i}" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>My 강의 수정하기</h3>
-      <button class="modal-close">&times;</button>
-    </div>
-    <form id="create-form" class="modal-form">
-      <input type="hidden" id="course">
-      <div>
-      <div class="form-group">
-        <label for="lecture-name">강의명</label>
-        <input type="text" id="lecture-name" class="form-input" placeholder="강의명을 입력해주세요." required>
-      </div>
-      </div>
-      
-      <div class="modal-actions">
-        <button type="button" class="cancel-btn">취소</button>
-        <button type="submit" class="save-btn">저장</button>
-      </div>
-    </form>
-  </div>
-</div>
-  `;
-  document.getElementsByClassName("modals").item(0).appendChild(clm);
+  const htmlText = await res.text();
+  const doc = new DOMParser().parseFromString(htmlText, 'text/html');
+
+  const modalEl = /** @type {HTMLDivElement|null} */ (doc.querySelector("div.detailLecture"));
+  modalEl.id = i;
+
+  const lastNum = getTrailingNumber(i);
+
+  const course = getStoredCourses().find(c => String(c.id) === String(lastNum));
+  if (course) {
+    const $ = (sel) => /** @type {HTMLInputElement|null} */ (modalEl.querySelector(sel));
+    const lectureName = $('#lecture-name');
+    const introduce = $('#introduce');
+    const level = $('#level');
+    const category = $('#category');
+    const thumbImg = /** @type {HTMLImageElement|null} */ (modalEl.querySelector('#previewImage'));
+
+    if (lectureName) lectureName.value = course.lectureName ?? '';
+    if (introduce) introduce.value = course.introduce ?? '';
+    if (level) level.value = course.level ?? '';
+    if (category) category.value = course.category ?? '';
+    if (thumbImg) thumbImg.src = course.thumbnail ?? '';
+  }
+
+  document.getElementsByClassName("modals").item(0).appendChild(modalEl);
   const modalId = document.getElementById(i);
   settingCloseModal(modalId);
 }

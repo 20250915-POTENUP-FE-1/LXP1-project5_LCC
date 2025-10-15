@@ -2,7 +2,8 @@ import {cardTemplate} from "../../card/card.js";
 
 /**
  * 폼안의 데이터를 전송하는 함수 (to LocalStorage)
- * @param form {HTMLElement}
+ *
+ * @param form {HTMLFormElement}
  * @param modal {HTMLElement}
  * @returns void
  */
