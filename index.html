@@ -1,52 +1,73 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title></title>
-  <link rel="stylesheet" href="./src/css/global.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <link rel="stylesheet" href="./src/css/global.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-container">
+        <section
+          id="section-header"
+          class="section-header"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: end;
+            padding: 11px;
+          "
+        >
+          <button
+            style="
+              border: 1px solid #000;
+              padding: 6px 18px;
+              border-radius: 10px;
+              background: #d9d9d9;
+              cursor: pointer;
+            "
+            class="modal-toggle-btn"
+            data-modal-target="createLectureModal"
+            id="lecture-create"
+          >
+            등록
+          </button>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 40% 60%;
+              align-items: center;
+              gap: 10px;
+              width: 100%;
+              margin-top: 10px;
+            "
+          >
+            <p>MyPage - 강좌</p>
+            <nav id="category-nav" class="">
+              <ul id="category-list"></ul>
+            </nav>
+          </div>
+        </section>
 
-<div class="container">
-  <div class="main-container">
-
-    <section id="section-header" class="section-header"
-             style="display: flex; flex-direction: column; justify-content: space-between; align-items: end; padding: 11px;">
-      <button
-          style="border: 1px solid #000; padding: 6px 18px; border-radius: 10px; background: #D9D9D9; cursor: pointer;"
-          class="modal-toggle-btn"
-          data-modal-target="createLectureModal"
-          id="lecture-create">
-        등록
-      </button>
-      <div style="
-    display:grid;
-    grid-template-columns: 40% 60%;
-    align-items:center;
-    gap:10px;
-    width:100%;
-    margin-top: 10px;
-  ">
-        <p>MyPage - 강좌</p>
-        <nav id="category-nav" class="">
-          <ul id="category-list">
-
-          </ul>
-        </nav>
+        <section id="card-container"></section>
       </div>
-    </section>
+      <div class="modals"></div>
+    </div>
 
-    <section id="card-container"></section>
-  </div>
-  <div class="modals"></div>
-</div>
-
-<script type="module" src="./src/js/layout/includeHeader.js"></script>
-<script type="module" src="./src/js/layout/includeSidebar.js"></script>
-<script type="module" src="src/js/ui/card/card.js"></script>
-<script type="module" src="src/js/ui/createLectureModal/createLectureModal.js"></script>
-<script type="module" src="src/js/utils/openModal.js"></script>
-<script type="module" src="src/js/ui/category/category.js"></script>
-</body>
+    <script type="module" src="./src/js/layout/includeHeader.js"></script>
+    <script type="module" src="./src/js/layout/includeSidebar.js"></script>
+    <script type="module" src="src/js/ui/card/card.js"></script>
+    <script
+      type="module"
+      src="src/js/ui/createLectureModal/createLectureModal.js"
+    ></script>
+    <script
+      type="module"
+      src="src/js/ui/detailLectureModal/detailLectureModal.js"
+    ></script>
+    <script type="module" src="src/js/utils/openModal.js"></script>
+    <script type="module" src="src/js/ui/category/category.js"></script>
+  </body>
 </html>

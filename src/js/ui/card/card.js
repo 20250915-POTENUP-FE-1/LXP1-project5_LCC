@@ -1,4 +1,4 @@
-import {getStoredCourses} from "../../store/storage.js";
+import { getStoredCourses } from "../../store/storage.js";
 
 // init
 getStoredCourses().forEach(async (course, i) => {
@@ -31,7 +31,7 @@ getStoredCourses().forEach(async (course, i) => {
  * document.getElementById("card-container").appendChild(btn);
  */
 export async function cardTemplate(course, i) {
-  const res = await fetch('/src/js/ui/card/cardTemplate.html'); // 경로는 HTML 기준이 아니라 JS 기준으로 조정 필요
+  const res = await fetch("/src/js/ui/card/cardTemplate.html"); // 경로는 HTML 기준이 아니라 JS 기준으로 조정 필요
   const htmlText = await res.text();
 
   const parser = new DOMParser();
@@ -40,11 +40,27 @@ export async function cardTemplate(course, i) {
   const btn = doc.querySelector("button.card");
 
   btn.id = `card-${i}`;
-  btn.dataset.modalTarget = `detail-${i}`;
+  // btn.dataset.modalTarget = `detail-${i}`;
   btn.querySelector("img").src = course.thumbnail;
   btn.querySelector(".lecture-name").textContent = course.lectureName;
   btn.querySelector(".introduce").textContent = course.introduce;
   btn.querySelector(".level").textContent = course.level;
+
+  // btn == lecture == card
+  btn.addEventListener("click", () => {
+    console.log("카드가 클릭됨", i);
+    //console.log(getStoredCourses());
+    const courses = getStoredCourses(); // [{lectureName:xxx, level:xxx}, {}]
+    const course = courses[i]; // 현재 클릭한 카드의 course 객체 === {lectureName:xxx, ,category, introduce,level:xxx, id, thumbnail:이미지경로}
+    // 현재 #update-form의 후손중에 #lecture-name인 요소에  course.lectureName 값 넣기
+    document.querySelector("#update-form #lecture-name").value =
+      course.lectureName;
+    document.querySelector("#update-form #lecture-thumbnail").src =
+      course.thumbnail;
+    document.querySelector("#update-form #introduce").value = course.introduce;
+    document.querySelector("#update-form #level").value = course.level;
+    document.querySelector("#update-form #category").value = course.category;
+  });
 
   return btn;
 }
