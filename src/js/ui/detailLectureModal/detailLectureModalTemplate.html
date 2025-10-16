@@ -8,37 +8,37 @@
     <form id="update-form" class="modal-form">
       <div class="form-group" style="display: flex">
         <div
-          id="forPreviewUpdate"
-          style="display: flex; justify-content: end; padding-right: 32px"
+            id="forPreviewUpdate"
+            style="display: flex; justify-content: end; padding-right: 32px"
         ></div>
         <div
-          style="display: flex; flex-direction: column; width: 70%; gap: 16px"
+            style="display: flex; flex-direction: column; width: 70%; gap: 16px"
         >
           <div class="form-group">
             <label for="lecture-name">강의명</label>
             <input
-              type="text"
-              id="lecture-name"
-              class="form-input"
-              placeholder="강의명을 입력해주세요."
-              required
+                type="text"
+                id="lecture-name"
+                class="form-input"
+                placeholder="강의명을 입력해주세요."
+                required
             />
           </div>
 
           <div class="form-group">
             <label for="introduce">간단 소개글</label>
             <input
-              type="text"
-              id="introduce"
-              class="form-input"
-              placeholder="설명 글에 소개할 글을 간단하게 작성해주세요."
-              required
+                type="text"
+                id="introduce"
+                class="form-input"
+                placeholder="설명 글에 소개할 글을 간단하게 작성해주세요."
+                required
             />
           </div>
         </div>
       </div>
 
-      <div style="display: flex; gap: 10px">
+      <div style="display: flex;">
         <div class="form-group" style="width: 100%">
           <label for="category">카테고리</label>
           <select name="categories" id="category" class="form-input">
@@ -58,23 +58,23 @@
       </div>
       <div class="form-group">
         <button
-          id="thumbnail-notice-update"
-          class="form-input"
-          type="button"
-          style="position: relative; text-align: left"
+            id="thumbnail-notice-update"
+            class="form-input"
+            type="button"
+            style="position: relative; text-align: left"
         >
           강의 소개하는 커버 이미지를 등록해주세요.
           <span
-            style="position: absolute; right: 20px; top: 0.75rem; color: black"
+              style="position: absolute; right: 20px; top: 0.75rem; color: black"
           >
             파일 불러오기
           </span>
         </button>
         <input
-          id="thumbnail-update"
-          type="file"
-          accept="image/*"
-          style="display: none"
+            id="thumbnail-update"
+            type="file"
+            accept="image/*"
+            style="display: none"
         />
       </div>
 

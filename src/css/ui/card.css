@@ -1,33 +1,38 @@
-
 #card-container {
   width: 100%;
   max-width: 1248px;
   margin: 0;
   display: grid;
-  padding-inline: min(24px);     /* 유동 좌우 여백 */
+  padding-inline: min(24px); /* 유동 좌우 여백 */
   gap: 32px;
   padding: 0px;
-  justify-items: center;
+  justify-items: start;
   grid-template-columns: 1fr;
 }
 
 /* ≥640px: 1열 유지 */
 @media (min-width: 640px) {
-  #card-container { grid-template-columns: repeat(1, 1fr); }
+  #card-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 /* ≥768px: 2열 */
-@media (min-width: 768px) {
-  #card-container { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 888px) {
+  #card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* ≥1024px: 3열 */
-@media (min-width: 1024px) {
-  #card-container { grid-template-columns: repeat(3, 1fr); }
+@media (min-width: 1211px) {
+  #card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* ≥1280px: 4열, 단 컨테이너는 1168px로 제한 */
-@media (min-width: 1248px) {
+@media (min-width: 1528px) {
   #card-container {
     max-width: 1248px; /* 요구된 상한 */
     grid-template-columns: repeat(4, 1fr);
@@ -40,7 +45,6 @@
   border: 0;
   width: 288px;
   padding: 16px;
-  border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -88,11 +92,11 @@
 
 .introduce {
   width: 227px;
-  height: 44px;                /* ✅ 항상 높이 고정 */
+  height: 44px; /* ✅ 항상 높이 고정 */
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;       /* 2줄까지만 표시 */
-  overflow: hidden;            /* 넘치는 텍스트 숨김 */
+  -webkit-line-clamp: 2; /* 2줄까지만 표시 */
+  overflow: hidden; /* 넘치는 텍스트 숨김 */
   flex: 1 0 0;
   color: #666;
   font-family: Pretendard;
@@ -152,19 +156,22 @@
 }
 
 /* 섹션 래퍼: 제목/버튼과 그리드를 하나로 묶음 */
-.cards-section{
-  width: 100%;
+.cards-section {
+  padding-top: 80px;
+  width: calc(100% - 40px);
   max-width: 1248px;
-  margin: 0 auto;
-  /* padding-inline: min(24px, 4vw); */
-  display: grid;
-  grid-template-rows: auto 1fr;      /* 상단 헤더 + 아래 리스트 */
-  row-gap: 16px;
+  height: 100%;
+  padding-left: 40px;
+}
+
+@media (min-width: 640px) {
+
 }
 
 /* 상단 헤더 레일 */
-.cards-header{
+.cards-header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
@@ -172,31 +179,32 @@
 }
 
 /* 제목 스타일(필요 시) */
-.cards-header .main-title{
+.cards-header .main-title {
   margin: 0;
   font-family: var(--font-sans);
   font-size: 32px;
   font-weight: 700;
+  /*min-width: 200px;*/
   line-height: 1.25;
 }
 
 /* 카드 그리드 */
-.cards-grid{
+.cards-grid {
   display: grid;
   gap: 32px;
-  justify-items: center; 
+  justify-items: center;
   grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
 }
 
 /* 빈 상태 중앙 배치: 카드가 0개면 1열 중앙 */
-.cards-grid.is-empty{
+.cards-grid.is-empty {
   grid-template-columns: 1fr;
   min-height: 60vh;
   place-items: center;
 }
 
 /* 빈 카드 기본 */
-.card-empty{ 
+.card-empty {
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -205,26 +213,30 @@
 }
 
 
-
-
 /* ========== Empty Card (빈 페이지 카드) ========== */
 /* 빈 카드 단독일 때 아이템을 중앙에 고정 */
 
-.card-empty{
-  grid-column: 1 / -1;           /* 전체 폭 차지 */
-  justify-self: center;          /* 가로 중앙 */
-  align-self: center;            /* 세로 중앙 */
+.card-empty {
+  grid-column: 1 / -1; /* 전체 폭 차지 */
+  justify-self: center; /* 가로 중앙 */
+  align-self: center; /* 세로 중앙 */
 }
-#card-container:has(.card-empty:only-child){ min-height: 60vh; }
-#card-container.is-empty{ padding-top: 16px; }
+
+#card-container:has(.card-empty:only-child) {
+  min-height: 60vh;
+}
+
+#card-container.is-empty {
+  padding-top: 16px;
+}
 
 /* 기존 카드와 동일 너비/라운드/패딩을 사용 */
 .card-empty {
-  align-items: center;            /* 아이콘-텍스트 수직 쌓기 전 중앙 정렬 */
-  justify-content: center;        /* 수평 중앙 */
+  align-items: center; /* 아이콘-텍스트 수직 쌓기 전 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 */
   text-align: center;
-  gap: 12px;                      /* 아이콘-텍스트 간격 */
-  min-height: 256px;              /* 카드 높이(아이콘 96px 기준 여백 포함) */
+  gap: 12px; /* 아이콘-텍스트 간격 */
+  min-height: 256px; /* 카드 높이(아이콘 96px 기준 여백 포함) */
 }
 
 /* 아이콘: 96px 라인 스타일 */
@@ -233,7 +245,7 @@
   height: 120px;
   flex-shrink: 0;
   background: url("/src/img/empty-course.svg") center/contain no-repeat;
- 
+
   border-radius: 120px;
 }
 

@@ -8,3 +8,18 @@
   align-items: center;
   margin-left: 300px;
 }
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media (max-width: 786px) {
+  .nav-bar {
+    gap: 16px;
+    align-items: normal;
+    flex-direction: column;
+  }
+}

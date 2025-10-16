@@ -1,5 +1,7 @@
 #category-nav {
   width: 100%;
+  display: flex;
+  justify-content: end;
   overflow-x: auto;
 }
 
@@ -19,7 +21,7 @@
 .category-chip {
   padding: 5px 20px;
   border-radius: 999px;
-  background: #f7f7f7;
+  background: #F7F8FF;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;

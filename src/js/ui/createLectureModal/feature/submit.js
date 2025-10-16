@@ -48,12 +48,12 @@ export function submit(form, modal) {
 
     if (!thumbnail) {
       console.log("thumbnail is empty", thumbnail);
-      alert("썸네일 이미지를 등록해주세요.");
+      alert("미디어 파일을 등록해주세요.");
       return;
     }
 
     if (!thumbnail) {
-      alert("썸네일 이미지를 등록해주세요.");
+      alert("미디어 파일을 등록해주세요.");
       return;
     }
 

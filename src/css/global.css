@@ -9,22 +9,21 @@
 :root {
   /* Pretendard - 폰트 전역 설정. */
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
-    system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+  "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
-#button-container .main-title{
-  margin: 0;                         /* p 기본 마진 제거 */ /* [web:145] */
-  flex: 1 0 0;                       /* 좌측에서 공간 확보 */
+#button-container .main-title {
+  margin: 0; /* p 기본 마진 제거 */ /* [web:145] */
+  flex: 1 0 0; /* 좌측에서 공간 확보 */
   color: #000;
-  font-family: var(--font-sans);     /* 폴백 포함 전역 변수 사용 */ /* [web:145] */
+  font-family: var(--font-sans); /* 폴백 포함 전역 변수 사용 */ /* [web:145] */
   font-size: 32px;
   font-weight: 700;
-  line-height: 1.25;                 /* 가독성 좋은 행간 */
-  letter-spacing: -0.01em;           /* 미세 자간(선택) */
+  line-height: 1.25; /* 가독성 좋은 행간 */
+  letter-spacing: -0.01em; /* 미세 자간(선택) */
 }
-
 
 
 body {
@@ -52,7 +51,6 @@ body {
 }
 
 .main-container {
-  padding-top: 64px;
   position: fixed;
   height: 100%;
   width: calc(100% - 240px);
@@ -96,8 +94,6 @@ p {
   appearance: none;
   /* 표준 */
 }
-
-
 
 
 input[type="file"] {

@@ -7,46 +7,34 @@
   <link rel="stylesheet" href="./src/css/global.css">
 </head>
 <body>
+<div class="container">
+  <div class="main-container">
+    <section id="cards-section" class="cards-section">
+      <header class="cards-header">
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+          <div>　</div>
+          <button class="create-modal-toggle-btn modal-toggle-btn" data-modal-target="createLectureModal"
+                  id="lecture-create">
+            강의 등록하기
+          </button>
+        </div>
 
-  <section id="cards-section" class="cards-section">
-    <!-- 섹션 헤더(제목 + 버튼) -->
-    <header class="cards-header">
-      <h1 class="main-title">My 강의</h1>
-      <button class="create-modal-toggle-btn modal-toggle-btn" data-modal-target="createLectureModal"
-        id="lecture-create">
-        강의 등록하기
-      </button>
-    </header>
-
-
-    <!-- 빈 페이지 카드 -->
-    <div class="card card-empty" id="card-empty" role="status" aria-live="polite" aria-hidden="true">
-      <div class="card-empty__icon" aria-hidden="true"></div>
-      <div class="card-empty__text">
-        <h3 class="card-empty__title">등록된 강의가 없습니다</h3>
-        <p class="card-empty__desc">상단 ‘강의 등록하기’ 버튼을 눌러<br>신규 강의를 등록해보세요.</p>
-      </div>
-    </div>
-  </section>
-
-
-
-  <div class="container">
-    <div class="main-container">
-      <!-- <section id="button-container"
-        style="display: flex; justify-content: space-between; align-items: center; padding: 11px;">
-        <p class="main-title">My 강의</p>
-        <button class="create-modal-toggle-btn modal-toggle-btn" data-modal-target="createLectureModal"
-          id="lecture-create">
-          강의 등록하기
-        </button>
-      </section> -->
-
-      <section id="card-container"></section>
-    </div>
+        <div class="nav-bar">
+          <h1 class="main-title" style="min-width: 140px;">My 강의</h1>
+          <nav id="category-nav" class="">
+            <ul id="category-list"></ul>
+            <div id="date-order-select">
+            </div>
+          </nav>
+        </div>
+      </header>
+      <section id="card-container" style="margin-top: 32px;"></section>
+      <section id="page-nation"></section>
+    </section>
   </div>
+  <div class="modals"></div>
+</div>
 
-<script type="module" src="./src/js/layout/includeHeader.js"></script>
 <script type="module" src="./src/js/layout/includeSidebar.js"></script>
 <script type="module" src="src/js/ui/card/card.js"></script>
 <script type="module" src="src/js/ui/createLectureModal/createLectureModal.js"></script>
@@ -56,54 +44,5 @@
 <script type="module" src="src/js/ui/card-list/cardList.js"></script>
 <script type="module" src="src/js/ui/date-order-select/dateOrderSelect.js"></script>
 <script type="module" src="src/js/ui/page-nation/pageNation.js"></script>
-<script>
-  // 카드 추가/삭제 시마다 호출
-  function toggleEmptyCard() {
-    const container = document.getElementById('card-container');
-    const emptyCard = document.getElementById('card-empty');
-    // .card 중에서 빈 카드 자신은 제외하고 실제 카드만 카운트
-    const realCards = Array.from(container.querySelectorAll('.card'))
-      .filter(el => !el.classList.contains('card-empty'));
-
-    if (realCards.length === 0) {
-      // 빈 카드가 없으면 맨 앞에 삽입
-      if (!emptyCard.parentElement) container.prepend(emptyCard);
-      emptyCard.setAttribute('aria-hidden', 'false');
-    } else {
-      emptyCard.setAttribute('aria-hidden', 'true');
-    }
-  }
-
-
-  function toggleEmptyCard() {
-    const container = document.getElementById('card-container'); // .cards-grid
-    const emptyCard = document.getElementById('card-empty');
-    const realCards = [...container.querySelectorAll('.card')].filter(c => !c.classList.contains('card-empty'));
-    const isEmpty = realCards.length === 0;
-
-    if (isEmpty) {
-      if (!emptyCard.parentElement) container.prepend(emptyCard); // 리스트 안 첫 칸
-      emptyCard.setAttribute('aria-hidden', 'false');
-      container.classList.add('is-empty');   // 핵심: 중앙 배치
-    } else {
-      emptyCard.setAttribute('aria-hidden', 'true');
-      container.classList.remove('is-empty');
-    }
-  }
-  toggleEmptyCard();
-  // new MutationObserver(toggleEmptyCard).observe(document.getElementById('card-container'), { childList: true });
-
-
-
-
-  // // 초기 및 변경 감지
-  // toggleEmptyCard();
-  // const obs = new MutationObserver(toggleEmptyCard);
-  // obs.observe(document.getElementById('card-container'), { childList: true });
-
-
-
-
-</script>
 </body>
 </html>

@@ -1,6 +1,4 @@
 import { settingCloseModal } from "../../utils/openModal.js";
-import { getTrailingNumber } from "../../utils/getTrailingNumber.js";
-import { getStoredCourses } from "../../store/storage.js";
 import { openFileInput } from "../../utils/file/openFileInput.js";
 import { fileInsert } from "../../utils/file/fileInsert.js";
 
