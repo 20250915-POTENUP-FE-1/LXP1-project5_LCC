@@ -7,14 +7,17 @@
 
     <form id="update-form" class="modal-form">
       <div class="form-group" style="display: flex">
-        <div style="width: 30%">
-          <img
+        <!-- <img
             id="lecture-thumbnail"
             src=""
             style="border: 1px solid black"
             width="100%"
-          />
-        </div>
+          /> -->
+
+        <div
+          id="forPreviewUpdate"
+          style="display: flex; justify-content: end; padding-right: 32px"
+        ></div>
         <div
           style="display: flex; flex-direction: column; width: 70%; gap: 16px"
         >
@@ -62,7 +65,7 @@
       </div>
       <div class="form-group">
         <button
-          id="thumbnail-notice"
+          id="thumbnail-notice-update"
           class="form-input"
           type="button"
           style="position: relative; text-align: left"
@@ -74,11 +77,17 @@
             파일 불러오기
           </span>
         </button>
+        <input
+          id="thumbnail-update"
+          type="file"
+          accept="image/*"
+          style="display: none"
+        />
       </div>
 
       <div class="modal-actions">
         <button type="button" class="cancel-btn">취소</button>
-        <button type="submit" class="edit-btn">수정</button>
+        <button type="submit" class="delete-btn">삭제</button>
         <button type="submit" class="save-btn">저장</button>
       </div>
     </form>

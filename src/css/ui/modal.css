@@ -131,7 +131,7 @@
   margin-top: 2rem;
   padding: 0 2rem;
 }
-.edit-btn,
+.delete-btn,
 .cancel-btn,
 .save-btn {
   padding: 0.75rem 1.5rem;
@@ -167,13 +167,13 @@
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
 }
 
-.edit-btn {
+.delete-btn {
   background: #069de4;
   color: white;
   box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
 }
 
-.edit-btn:hover {
+.delete-btn:hover {
   background: #069de4;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
