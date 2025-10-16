@@ -1,6 +1,7 @@
 import {category} from "./category-data.js";
-import {setUrlParams, getUrlParams} from "../../utils/urlParams.js";
+import {setUrlParams} from "../../utils/urlParams.js";
 import {listInit} from "../card-list/cardList.js";
+import {categoryBtnTemplate} from "./category-btn/categoryBtn.js";
 
 init();
 
@@ -11,7 +12,7 @@ init();
  */
 function init() {
   category.forEach(async (value) => {
-    const chip = await categoryTemplate(value);
+    const chip = await categoryBtnTemplate(value);
     document.getElementById("category-list").appendChild(chip);
   })
   document.addEventListener('click', async (e) => {
@@ -27,7 +28,7 @@ function init() {
 
     // 2) url에 키 - 값 반영
     const key = li.dataset.key;
-    setUrlParams(key)
+    setUrlParams('category', key)
 
     // 3) 클릭한 것만 활성화
     li.classList.add('is-active');
@@ -36,32 +37,4 @@ function init() {
     // todo 다시 리시트 뿌리기 최적화 방법 생각해내기.
     await listInit();
   });
-}
-
-/**
- * 카테고리 버튼을 반환하는 함수.
- * @param value {{key: string, value: string}}
- * @param i {number}
- * @returns {Promise<Element>}
- */
-export async function categoryTemplate(value) {
-  const res = await fetch('/src/js/ui/category/categoryTemplate.html'); // 경로는 HTML 기준이 아니라 JS 기준으로 조정 필요
-  const htmlText = await res.text();
-
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlText, "text/html");
-  const chip = doc.querySelector(".category-chip");
-
-  const category = await getUrlParams('category');
-  console.log(chip);
-
-  chip.id = value.key;
-  chip.textContent = value.value;
-  chip.dataset.key = value.key;
-  if (value.key === category) chip.classList.add('is-active');
-  else if (category == null && value.key === 'all') {
-    chip.classList.add('is-active');
-  }
-
-  return chip;
 }

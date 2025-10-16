@@ -3,6 +3,8 @@
 @import './ui/modal.css';
 @import './ui/card.css';
 @import "./ui/category.css";
+@import "./ui/date-order-select.css";
+@import "./ui/page-nation.css";
 
 body {
   padding: 0;
@@ -20,11 +22,11 @@ html, body {
 
 .main-container {
   position: fixed;
-  height: 100%;
   width: calc(100% - 300px);
   margin-top: 64px;
   margin-left: 300px;
   overflow-y: auto;
+  height: calc(100% - 64px);
 }
 
 a {
