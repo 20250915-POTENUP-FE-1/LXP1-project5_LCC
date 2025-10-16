@@ -97,7 +97,7 @@ export async function cardTemplate(course, i) {
       cardTemplate(updatedCourse, i).then((newCard) => {
         document.getElementById("card-container").appendChild(newCard); // 수정된 카드 추가
       });
-      // 모달 닫기
+      // 모달 닫아주기
       document.getElementById("detailLecture").style.display = "none";
       document.getElementById("detailLecture").classList.remove("active");
     };
