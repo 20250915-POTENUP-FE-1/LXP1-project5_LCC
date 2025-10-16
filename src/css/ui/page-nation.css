@@ -1,4 +1,5 @@
 #page-nation {
+  position: absolute;
   display: flex;
   align-items: center;
   margin-top: 20px;
@@ -8,6 +9,9 @@
   padding-bottom: 30px;
   padding-right: 10px;
   border-top: 1px solid #d9d9d9;
+  top: 950px;
+  width: calc(100% - 35px);
+  right: -10px;
 }
 
 .page-btn {
