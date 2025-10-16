@@ -16,8 +16,9 @@ export function submit(form, modal) {
     const level = document.getElementById("level").value;
     const introduce = document.getElementById("introduce").value.trim();
     const thumbnail = document.getElementById("previewImage").src;
+    const created = new Date();
 
-    const id = JSON.parse(localStorage.getItem("courses")).length ?? 0;
+    const id = localStorage.getItem("courses") ? JSON.parse(localStorage.getItem("courses")).length : 0;
 
     if (!lectureName || !category || !level || !introduce) {
       alert("모든 필드를 입력해주세요.");
@@ -30,7 +31,7 @@ export function submit(form, modal) {
     }
 
     const newCourse = {
-      lectureName, introduce, level, category, thumbnail, id
+      lectureName, introduce, level, category, thumbnail, id, created
     };
 
     const storedCourses = JSON.parse(localStorage.getItem("courses")) || [];
