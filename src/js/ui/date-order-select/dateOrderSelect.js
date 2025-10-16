@@ -1,4 +1,4 @@
-import {setUrlParams} from "../../utils/urlParams.js";
+import {setUrlParams, getUrlParams} from "../../utils/urlParams.js";
 import {listInit} from "../card-list/cardList.js";
 
 export async function dateOrderSelect() {
@@ -7,10 +7,19 @@ export async function dateOrderSelect() {
 
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlText, "text/html");
+  const sort = (await getUrlParams('sort')) || 'new';
 
-  const btn = doc.querySelector("select#sort-select");
+  const select = doc.querySelector("select#sort-select");
 
-  return btn;
+  // 값 일치하는 option 선택
+  select.value = sort.toLowerCase();
+
+  // 혹시 HTML 안에 없는 값이 들어왔을 때 기본값으로 되돌리기
+  if (!['new', 'old'].includes(select.value)) {
+    select.value = 'new';
+  }
+
+  return select;
 }
 
 document.getElementById("date-order-select").appendChild(await dateOrderSelect());

@@ -8,12 +8,6 @@ await listInit();
 /**
  * 초기화
  * 리스트에 카드 생성
- */
-
-
-/**
- * 초기화
- * 리스트에 카드 생성
 
  * @param page {number} 페이지 범위
  * @returns {Promise<void>}

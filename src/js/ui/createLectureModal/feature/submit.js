@@ -13,17 +13,42 @@ export function submit(form, modal) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault(); // 기본 새로고침 방지
 
-    const lectureName = document.getElementById("lecture-name").value.trim();
-    const category = document.getElementById("category").value;
-    const level = document.getElementById("level").value;
-    const introduce = document.getElementById("introduce").value.trim();
-    const thumbnail = document.getElementById("previewImage").src;
+    const lectureName = document.querySelector("#create-form #lecture-name").value.trim();
+    const category = document.querySelector("#create-form #category").value.trim();
+    const level = document.querySelector("#create-form #level").value.trim();
+    const introduce = document.querySelector("#create-form #introduce").value.trim();
+    const thumbnail = document.querySelector("#create-form #previewImage").src;
     const created = new Date();
 
     const id = localStorage.getItem("courses") ? JSON.parse(localStorage.getItem("courses")).length : 0;
 
-    if (!lectureName || !category || !level || !introduce) {
-      alert("모든 필드를 입력해주세요.");
+    if (!lectureName) {
+      console.log("lecture name is empty", lectureName);
+      alert("강의명을 입력해주세요.");
+      return;
+    }
+
+    if (!category) {
+      console.log("category is empty", category);
+      alert("카테고리를 선택해주세요.");
+      return;
+    }
+
+    if (!level) {
+      console.log("level is empty", level);
+      alert("난이도를 선택해주세요.");
+      return;
+    }
+
+    if (!introduce) {
+      console.log("introduce is empty", introduce);
+      alert("소개글을 입력해주세요.");
+      return;
+    }
+
+    if (!thumbnail) {
+      console.log("thumbnail is empty", thumbnail);
+      alert("썸네일 이미지를 등록해주세요.");
       return;
     }
 
@@ -44,6 +69,8 @@ export function submit(form, modal) {
     localStorage.removeItem("thumbnailImage");
     modal.style.display = 'none';
     form.reset();
+    const preview = document.getElementById("forPreview");
+    preview.innerHTML = ``;
     if (storedCourses.length > pageShowCards) {
       await listInit();
     }

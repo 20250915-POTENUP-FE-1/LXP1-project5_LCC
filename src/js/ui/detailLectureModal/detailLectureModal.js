@@ -21,9 +21,7 @@ export async function detailLectureModal() {
 
   const htmlText = await res.text();
   const doc = new DOMParser().parseFromString(htmlText, "text/html");
-  console.log(doc);
   const dlm = doc.querySelector("#detailLecture");
-  console.log(dlm);
 
   return dlm;
 
@@ -38,8 +36,6 @@ const modal = document.getElementById("detailLecture");
 
 // 파일 클릭
 openFileInput(noticeBtn, fileInput);
-
-console.log(preview);
 
 // 파일 넣는 함수
 fileInsert(noticeBtn, fileInput, preview);
