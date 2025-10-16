@@ -67,6 +67,7 @@ export async function cardTemplate(course, i) {
     //detainLectureModal 에서 삭제버튼 누르면 로컬스토리지에서 해당 강좌 삭제 및 모달 닫기 및 카드 목록에서 해당 카드 삭제 하기
     const deleteBtn = document.querySelector(".delete-btn");
     deleteBtn.onclick = function () {
+      alert("정말 삭제하시겠습니까?");
       const courses = getStoredCourses();
       courses.splice(i, 1); // i번째 요소 삭제
       localStorage.setItem("courses", JSON.stringify(courses)); // 로컬스토리지 업데이트
