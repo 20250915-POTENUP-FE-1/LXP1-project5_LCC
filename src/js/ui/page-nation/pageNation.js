@@ -1,22 +1,41 @@
 import {getStoredCourses} from "../../store/storage.js";
 import {pageBtnTemplate} from "./page-btn/pageBtn.js";
 import {pageShowCards} from "../../../constants/contants.js";
+import {listInit} from "../card-list/cardList.js";
 
-await init()
+let pageClickBound = false;
+let currentPage = 1;
 
-async function init() {
-  const courses = getStoredCourses(); // 강좌 갯수
-  const pageNationBtnCount = Math.ceil(courses.length / pageShowCards);
+await pageNationInit();
+
+export async function pageNationInit(page = getStoredCourses().length) {
+  const pageNationBtnCount = Math.ceil(page / pageShowCards);
   await renderPageButtons(pageNationBtnCount);
 
-  // 이벤트 리스너 등록
-  document.addEventListener("click", async (e) => {
-    const btn = e.target.closest(".page-btn");
-    if (!btn) return;
-  })
+  if (!pageClickBound) {
+    document.addEventListener("click", onPageClick);
+    pageClickBound = true;
+  }
 }
 
-async function renderPageButtons(count){
+async function onPageClick(e) {
+  const btn = e.target.closest(".page-btn");
+  if (!btn) return;
+
+  // data-page를 쓰는 게 안전 (공백 방지)
+  currentPage = Number(btn.dataset.page ?? btn.textContent.trim());
+  updateActivePageButton(currentPage);
+  await listInit(currentPage);
+}
+
+function updateActivePageButton(page) {
+  document.querySelectorAll(".page-btn").forEach((b) => {
+    const p = Number(b.dataset.page ?? b.textContent.trim());
+    b.classList.toggle("is-active", p === page);
+  });
+}
+
+async function renderPageButtons(count) {
   const pageNation = document.getElementById("page-nation");
   pageNation.innerHTML = "";
 

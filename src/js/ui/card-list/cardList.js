@@ -9,7 +9,16 @@ await listInit();
  * 초기화
  * 리스트에 카드 생성
  */
-export async function listInit() {
+
+
+/**
+ * 초기화
+ * 리스트에 카드 생성
+
+ * @param page {number} 페이지 범위
+ * @returns {Promise<void>}
+ */
+export async function listInit(page = 1) {
   const courses = getStoredCourses();               // 배열
   const category = await getUrlParams('category') || 'all';
   const sort = await getUrlParams('sort') || 'new';
@@ -24,7 +33,7 @@ export async function listInit() {
     const dateA = new Date(a.created);
     const dateB = new Date(b.created);
 
-    if (lowerSort !== 'old') {
+    if (lowerSort === 'old') {
       // 오래된 순
       return dateA - dateB;
     } else {
@@ -33,13 +42,18 @@ export async function listInit() {
     }
   });
 
+  const pageNum = Number(page) || 1;
+  const start = (pageNum - 1) * pageShowCards;
+  const end = start + pageShowCards;
+  const pageCourses = sorted.slice(start, end);
+
   // 렌더 전에 비우기
   const container = document.getElementById("card-container");
   container.innerHTML = "";
 
   // 카드 렌더
-  for (let i = 0; i < pageShowCards; i++) {
-    const card = await cardTemplate(sorted[i], i);
+  for (let i = 0; i < pageCourses.length; i++) {
+    const card = await cardTemplate(pageCourses[i], i);
     container.appendChild(card);
   }
 }

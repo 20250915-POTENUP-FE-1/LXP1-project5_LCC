@@ -18,3 +18,9 @@
   font-size: 14px;
   border-radius: 8px;
 }
+
+.page-btn.is-active {
+  background: #3b82f6; /* 파란색 */
+  color: white;
+  font-weight: bold;
+}

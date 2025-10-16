@@ -10,7 +10,11 @@ export async function pageBtnTemplate(value) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlText, "text/html");
   const pageBtn = doc.querySelector(".page-btn");
+  if (value == 1) {
+    pageBtn.classList.add("is-active");
+  }
   pageBtn.textContent = String(value);
+  pageBtn.dataset.page = String(value);
 
   return pageBtn;
 }
