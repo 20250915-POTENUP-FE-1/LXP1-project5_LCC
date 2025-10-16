@@ -38,7 +38,39 @@ export async function cardTemplate(course, i) {
   btn.querySelector("img").src = course.thumbnail;
   btn.querySelector(".lecture-name").textContent = course.lectureName;
   btn.querySelector(".introduce").textContent = course.introduce;
-  btn.querySelector(".level").textContent = course.level;
+
+
+  if (course.level.toUpperCase() === 'UPPER') {
+    // 고급
+    btn.querySelector('.level').style.backgroundColor = '#D5FCDC';
+    btn.querySelector('.level').style.borderRight = '1px solid #D5FCDC';
+    btn.querySelector(".level").textContent = '고급'
+  } else if (course.level.toUpperCase() === 'MIDDLE') {
+    // 중급
+    btn.querySelector('.level').style.backgroundColor = '#F4FEAC';
+    btn.querySelector('.level').style.borderRight = '1px solid #F4FEAC';
+    btn.querySelector(".level").textContent = '중급'
+  } else {
+    // 초급 (lower)
+    btn.querySelector('.level').style.backgroundColor = '#CDDAFA';
+    btn.querySelector('.level').style.borderRight = '1px solid #CDDAFA';
+    btn.querySelector(".level").textContent = '초급'
+  }
+
+
+
+  const cat = String(course.category).trim().toUpperCase();
+
+  if (cat === 'DEVELOP') {
+    btn.querySelector('.category').textContent = '개발';
+  } else if (cat === 'DESIGN') {
+    btn.querySelector('.category').textContent = '디자인';
+  } else {
+    btn.querySelector(".category").textContent = String(course.category).toUpperCase(); // 항상 대문자
+  }
+
+
+
 
   // btn == lecture == card
   btn.addEventListener("click", () => {

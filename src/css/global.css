@@ -6,27 +6,58 @@
 @import "./ui/date-order-select.css";
 @import "./ui/page-nation.css";
 
+:root {
+  /* Pretendard - 폰트 전역 설정. */
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+#button-container .main-title{
+  margin: 0;                         /* p 기본 마진 제거 */ /* [web:145] */
+  flex: 1 0 0;                       /* 좌측에서 공간 확보 */
+  color: #000;
+  font-family: var(--font-sans);     /* 폴백 포함 전역 변수 사용 */ /* [web:145] */
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;                 /* 가독성 좋은 행간 */
+  letter-spacing: -0.01em;           /* 미세 자간(선택) */
+}
+
+
+
 body {
+  background-color: #F7F8FF;
+  /* 최종 배경색 */
   padding: 0;
   margin: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
+  margin: 0;
+  /* 기본 여백 제거 */
+  min-height: 100vh;
+  /* 화면 전체 덮기 */
+  font-family: var(--font-sans);
+  /* Pretendard - 폰트 전역 설정. */
 }
 
 .container {
   overflow-y: auto;
   height: 100%;
+  background: transparent;
 }
 
 .main-container {
+  padding-top: 64px;
   position: fixed;
-  width: calc(100% - 300px);
-  margin-top: 64px;
-  margin-left: 300px;
+  height: 100%;
+  width: calc(100% - 240px);
+  margin-left: 240px;
   overflow-y: auto;
-  height: calc(100% - 64px);
 }
 
 a {
@@ -40,6 +71,34 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin: 0;
 }
+
+
+.create-modal-toggle-btn {
+  color: #FFF;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 10px 32px;
+  justify-content: flex-end;
+  align-items: flex-start;
+  border-radius: 24px;
+  background: #4318FF;
+  border: none;
+  /* UA 기본 테두리 제거 */
+  outline: none;
+  /* 기본 포커스 제거 */
+  box-shadow: none;
+  /* 프레임워크 잔여 효과 제거 */
+  -webkit-appearance: none;
+  /* Safari 기본 버튼 스타일 제거 */
+  appearance: none;
+  /* 표준 */
+}
+
+
+
 
 input[type="file"] {
   display: none; /* 기본 input은 숨김 */
