@@ -1,11 +1,3 @@
-import {getStoredCourses} from "../../store/storage.js";
-
-// init
-getStoredCourses().forEach(async (course, i) => {
-  const a = await cardTemplate(course, i);
-  document.getElementById("card-container").appendChild(a);
-});
-
 /**
  * 단일 강좌 카드 정보
  * @typedef {Object} Course
