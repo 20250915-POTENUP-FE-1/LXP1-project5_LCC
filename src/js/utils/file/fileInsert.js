@@ -24,10 +24,11 @@ export function fileInsert(noticeBtn, fileInput, preview) {
       // localStorage에 저장
       localStorage.setItem("thumbnailImage", base64Image);
 
+      preview.innerHTML = '';
       // 미리보기 표시
-      preview.innerHTML = `<img id="previewImage" src="${base64Image}" alt="썸네일 미리보기" style="width: 250px; height: 250px;border-radius: 20px;">`;
+      preview.innerHTML = `<img id="previewImage" src="${base64Image}" alt="썸네일 미리보기" style="width: 232px; height: 164px;border-radius: 20px;">`;
 
-      // 버튼 텍스트 변경
+      // 버튼 텍스트 변경 ;"
       noticeBtn.textContent = file.name;
     };
 

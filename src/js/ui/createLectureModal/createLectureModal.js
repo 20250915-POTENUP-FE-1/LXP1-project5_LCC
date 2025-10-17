@@ -9,7 +9,9 @@ document
   .item(0)
   .appendChild(await createLectureModal());
 
-/**
+
+
+  /**
  * 강의 생성 모달을 만드는 함수
  * @returns {Promise<Element>}
  */
@@ -62,3 +64,5 @@ fileInsert(noticeBtn, fileInput, preview);
 
 // 전송
 submit(form, modal);
+
+
