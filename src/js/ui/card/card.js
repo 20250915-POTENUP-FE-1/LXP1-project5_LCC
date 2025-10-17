@@ -3,6 +3,7 @@ import {listInit} from "../card-list/cardList.js";
 import {applyCategoryUI, applyLevelUI} from "../../utils/format.js";
 import {getUrlParams} from "../../utils/urlParams.js";
 import {pageNationInit} from "../page-nation/pageNation.js";
+import {pageShowCards} from "../../../constants/contants.js";
 
 /**
  * 단일 강좌 카드 정보
@@ -73,15 +74,18 @@ export async function cardBtnOption(i) {
   deleteBtn.onclick = function () {
     const yes = confirm("정말 삭제하시겠습니까?");
     if (!yes) return;
-    console.log(yes);
 
     const delIndex = courses.findIndex(c => String(c.id) === String(i));
     if (delIndex < 0) return;
+    const category = getUrlParams('category');
+    const norm = String(category).toLowerCase();
+    const filtered = (norm === 'all' || norm === '' || norm == null) ? courses : courses.filter(c => String(c.category).toLowerCase() === norm);
 
     courses.splice(course.id, 1); // i번째 요소 삭제
     localStorage.setItem("courses", JSON.stringify(courses)); // 로컬스토리지 업데이트
+    console.log(courses);
     listInit();
-    if (courses.length === 0) {
+    if (filtered.length % pageShowCards === 0 || courses.length === 0) {
       pageNationInit();
     }
 
@@ -94,7 +98,7 @@ export async function cardBtnOption(i) {
   updateForm.onsubmit = async function (event) {
     event.preventDefault(); // 폼 제출 기본 동작 방지
     const updatedCourse = {
-      ...courses[i], // 기존 데이터 유지
+      ...course, // 기존 데이터 유지
       lectureName: document.querySelector("#update-form #lecture-name").value,
       thumbnail: document.querySelector("#update-form #previewImage").src,
       introduce: document.querySelector("#update-form #introduce").value,
@@ -102,7 +106,10 @@ export async function cardBtnOption(i) {
       category: document.querySelector("#update-form #category").value,
     };
 
-    courses[i] = updatedCourse;
+    // 배열에서 해당 id의 인덱스를 찾아 교체
+    const idx = courses.findIndex(c => String(c.id) === String(updatedCourse.id));
+    if (idx === -1) return;
+    courses[idx] = updatedCourse;
     localStorage.setItem("courses", JSON.stringify(courses)); // 로컬스토리지 업데이트
     const page = await getUrlParams('page');
     await listInit(Number(page));
