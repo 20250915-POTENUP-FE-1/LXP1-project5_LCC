@@ -13,7 +13,7 @@ import {rebindCardClick} from "../../utils/rebindCardClick.js";
  */
 let inFlight = Promise.resolve();
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   listInit().catch(console.error);
 });
 
@@ -95,8 +95,7 @@ export async function listInit(pageOverride = 1) {
   })();
 
   // 다음 호출이 이 작업을 기다리게 연결
-  inFlight = job.catch(() => {
-  });
+  inFlight = job.catch(() => {});
   await job;
 }
 
