@@ -22,7 +22,7 @@ async function createLectureModal() {
 
   const doc = new DOMParser().parseFromString(htmlText, "text/html");
   const clm = doc.querySelector("#createLectureModal");
-  const sel = clm.querySelector(`select[name="categories"]`);
+  const sel = clm.querySelector(`select[name="category"]`);
   sel.innerHTML = "";
   const ph = document.createElement("option");
   ph.value = "";
