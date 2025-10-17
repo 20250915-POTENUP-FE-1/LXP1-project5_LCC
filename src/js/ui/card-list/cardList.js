@@ -3,6 +3,8 @@ import {cardTemplate} from "../card/card.js";
 import {getUrlParams} from "../../utils/urlParams.js";
 import {pageShowCards} from "../../../constants/contants.js";
 import {notFoundTemplate} from "../not-found/notFound.js";
+import {applyCategoryUI, applyLevelUI} from "../../utils/format.js";
+import {rebindCardClick} from "../../utils/rebindCardClick.js";
 
 /**
  * 현재 진행 중인 렌더 작업을 직렬화하기 위한 Promise.
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * 기존 노드는 가능한 재사용하고, 부족한 만큼만 추가하며, 초과한 노드는 제거한다.
  * 최초 1회 실행(원하면 DOMContentLoaded 후에)
  * @async
- * @param {number} [page=1] - 페이지 번호(1-base)
+ * @param {number}  - 페이지 번호(1-base)
  * @returns {Promise<void>} 렌더 완료 후 resolve
  *
  * @example
@@ -29,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * // 페이지 이동
  * await listInit(2);
  */
-export async function listInit() {
+export async function listInit(pageOverride = 1) {
   // 이전 작업 끝날 때까지 대기 (직렬화)
   await inFlight;
 
@@ -40,7 +42,6 @@ export async function listInit() {
 
     const courses = getStoredCourses();
     const category = await getUrlParams('category') || 'all';
-    const page = await getUrlParams('page') || '1';
     const sort = await getUrlParams('sort') || 'new';
     const norm = String(category).toLowerCase();
     const lowerSort = String(sort).toLowerCase();
@@ -53,38 +54,42 @@ export async function listInit() {
       return lowerSort === 'old' ? dateA - dateB : dateB - dateA;
     });
 
-    const pageNum = Number(page) || 1;
+    const fromUrl = Number(await getUrlParams('page')) || 1;
+    const pageNum = Number(pageOverride) || fromUrl || 1;
+
     const start = (pageNum - 1) * pageShowCards;
     const end = start + pageShowCards;
     const pageCourses = sorted.slice(start, end);
 
-    // 현재 렌더된 카드 스냅샷 (루트가 .card 여야 함)
-    // const existingCards = Array.from(container.children).filter(n => n.classList?.contains('card'));
-    const existingCards = Array.from(container.querySelectorAll(':scope > .card'));
+    // 기존 empty 제거 (있을 수 있음)
+    container.querySelector('#card-empty')?.remove();
+
+    // 현재 렌더된 카드 스냅샷 (직계 + .card)
+    const existingCards = Array.from(container.children)
+      .filter(el => el.classList?.contains('card'));
 
     const maxLen = Math.max(existingCards.length, pageCourses.length);
-    if (pageCourses.length === 0) {
-      Array.from(container.querySelectorAll(':scope > .card')).forEach(el => el.remove());
-      // 기존 empty 제거 후 다시 추가
-      container.querySelector('#card-empty')?.remove();
-      const empty = await notFoundTemplate(); // <- 여기서 반환되는 루트에 id="card-empty" 있어야 함
-      container.style.display = 'block';
-      container.appendChild(empty);
-    } else {
-      for (let i = 0; i < maxLen; i++) {
-        const data = pageCourses[i];
-        const node = existingCards[i];
 
-        if (data && node) {
-          ensureCardId(node, i);
-          updateCard(node, data, i);
-        } else if (data && !node) {
-          const newCard = await cardTemplate(data, i);
-          ensureCardId(newCard, i);
-          container.appendChild(newCard);
-        } else if (!data && node) {
-          node.remove();
-        }
+    if (pageCourses.length === 0) {
+      // 카드 비우고 empty 표시
+      existingCards.forEach(el => el.remove());
+      const empty = await notFoundTemplate(); // id="card-empty" 보장
+      container.appendChild(empty);
+      return;
+    }
+
+    for (let i = 0; i < maxLen; i++) {
+      const data = pageCourses[i];
+      const node = existingCards[i];
+      if (data && node) {
+        ensureCardId(node, data.id);
+        updateCard(node, data);
+      } else if (data && !node) {
+        const newCard = await cardTemplate(data, data.id);
+        ensureCardId(newCard, data.id);
+        container.appendChild(newCard);
+      } else if (!data && node) {
+        node.remove();
       }
     }
   })();
@@ -131,9 +136,10 @@ function ensureCardId(cardNode, index) {
  * @param {number} index - 현재 페이지 내 카드 인덱스(0-base)
  * @returns {void}
  */
-function updateCard(cardNode, data, index) {
+function updateCard(cardNode, data) {
   cardNode.dataset.id = data.id ?? '';
   cardNode.dataset.index = String(data.id);
+  cardNode.id = `card-${data.id}`; // `card-${i}`;
 
   const imgEl = cardNode.querySelector('.card-thumbnail img');
   if (imgEl) {
@@ -142,17 +148,19 @@ function updateCard(cardNode, data, index) {
   }
 
   const nameEl = cardNode.querySelector('.lecture-name');
-  if (nameEl) nameEl.textContent = data.lectureName ?? '';
+  if (nameEl) nameEl.textContent = `${data.lectureName}  id: ${data.id}` ?? '';
 
   const introEl = cardNode.querySelector('.introduce');
   if (introEl) introEl.textContent = data.introduce ?? '';
 
   const levelEl = cardNode.querySelector('.level');
-  if (levelEl) levelEl.textContent = data.level ?? '';
+  applyLevelUI(levelEl, data.level);
 
-  const categoryEl = cardNode.querySelector('.category');
-  if (categoryEl) categoryEl.textContent = data.category ?? '';
+  const catEl2 = cardNode.querySelector('.category');
+  applyCategoryUI(catEl2, data.category);
 
   const dateEl = cardNode.querySelector('.card-date');
   if (dateEl) dateEl.textContent = data.created ? new Date(data.created).toLocaleDateString() : '';
+
+  rebindCardClick(cardNode, /* indexOrId */ data.id);
 }

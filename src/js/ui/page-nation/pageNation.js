@@ -5,7 +5,6 @@ import {listInit} from "../card-list/cardList.js";
 import {setUrlParams} from "../../utils/urlParams.js";
 
 let pageClickBound = false;
-let currentPage = 1;
 
 await pageNationInit();
 
@@ -22,13 +21,11 @@ export async function pageNationInit(page = getStoredCourses().length) {
 async function onPageClick(e) {
   const btn = e.target.closest(".page-btn");
   if (!btn) return;
-  console.log(btn.dataset.page);
 
-  await setUrlParams('page', btn.dataset.page.trim());
-  // data-page를 쓰는 게 안전 (공백 방지)
-  currentPage = Number(btn.dataset.page ?? btn.textContent.trim());
-  updateActivePageButton(currentPage);
-  await listInit();
+  const page = Number(btn.dataset.page ?? btn.textContent.trim());
+  await setUrlParams('page', String(page));  // URL도 맞춰주고
+  updateActivePageButton(page);
+  await listInit(page);
 }
 
 function updateActivePageButton(page) {

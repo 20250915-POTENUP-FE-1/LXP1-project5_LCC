@@ -1,5 +1,7 @@
 import {setUrlParams, getUrlParams} from "../../utils/urlParams.js";
 import {listInit} from "../card-list/cardList.js";
+import {pageNationInit} from "../page-nation/pageNation.js";
+import {getStoredCourses} from "../../store/storage.js";
 
 export async function dateOrderSelect() {
   const res = await fetch('/src/js/ui/date-order-select/dateOrderSelectTemplate.html'); // 경로는 HTML 기준이 아니라 JS 기준으로 조정 필요
@@ -35,6 +37,13 @@ DOMReady(function () {
   sortSelect.addEventListener('change', async (e) => {
     const value = e.target.value;
     await setUrlParams('sort', value);
+    await setUrlParams('page', '1');
+    const category = await getUrlParams('category');
+    const courses = getStoredCourses();
+    const filtered = (category === 'all' || category === '' || category == null) ? courses : courses.filter(c => String(c.category).toLowerCase() === category.toLowerCase());
+    console.log(filtered);
+
+    await pageNationInit(filtered.length);
     await listInit();
   });
 })

@@ -18,7 +18,7 @@ export function submit(form, modal) {
     const category = document.querySelector("#create-form #category").value.trim();
     const level = document.querySelector("#create-form #level").value.trim();
     const introduce = document.querySelector("#create-form #introduce").value.trim();
-    const thumbnail = document.querySelector("#create-form #previewImage").src;
+    const thumbnail = document.querySelector("#create-form #previewImage").src.trim();
     const created = new Date();
 
     const id = localStorage.getItem("courses") ? JSON.parse(localStorage.getItem("courses")).length : 0;
