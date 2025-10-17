@@ -1,7 +1,7 @@
-import {getStoredCourses} from "../../store/storage.js";
-import {cardTemplate} from "../card/card.js";
-import {getUrlParams} from "../../utils/urlParams.js";
-import {pageShowCards} from "../../../constants/contants.js";
+import { getStoredCourses } from "../../store/storage.js";
+import { cardTemplate } from "../card/card.js";
+import { getUrlParams } from "../../utils/urlParams.js";
+import { pageShowCards } from "../../../constants/contants.js";
 
 /**
  * 현재 진행 중인 렌더 작업을 직렬화하기 위한 Promise.
@@ -10,7 +10,7 @@ import {pageShowCards} from "../../../constants/contants.js";
  */
 let inFlight = Promise.resolve();
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   listInit().catch(console.error);
 });
 
@@ -38,18 +38,21 @@ export async function listInit() {
     if (!container) return; // 안전 가드
 
     const courses = getStoredCourses();
-    const category = await getUrlParams('category') || 'all';
-    const page = await getUrlParams('page') || '1';
-    const sort = await getUrlParams('sort') || 'new';
+    const category = (await getUrlParams("category")) || "all";
+    const page = (await getUrlParams("page")) || "1";
+    const sort = (await getUrlParams("sort")) || "new";
     const norm = String(category).toLowerCase();
     const lowerSort = String(sort).toLowerCase();
 
-    const filtered = (norm === 'all' || norm === '' || norm == null) ? courses : courses.filter(c => String(c.category).toLowerCase() === norm);
+    const filtered =
+      norm === "all" || norm === "" || norm == null
+        ? courses
+        : courses.filter((c) => String(c.category).toLowerCase() === norm);
 
     const sorted = filtered.sort((a, b) => {
       const dateA = new Date(a.created);
       const dateB = new Date(b.created);
-      return lowerSort === 'old' ? dateA - dateB : dateB - dateA;
+      return lowerSort === "old" ? dateA - dateB : dateB - dateA;
     });
 
     const pageNum = Number(page) || 1;
@@ -59,7 +62,9 @@ export async function listInit() {
 
     // 현재 렌더된 카드 스냅샷 (루트가 .card 여야 함)
     // const existingCards = Array.from(container.children).filter(n => n.classList?.contains('card'));
-    const existingCards = Array.from(container.querySelectorAll(':scope > .card'));
+    const existingCards = Array.from(
+      container.querySelectorAll(":scope > .card")
+    );
 
     const maxLen = Math.max(existingCards.length, pageCourses.length);
     for (let i = 0; i < maxLen; i++) {
@@ -80,8 +85,7 @@ export async function listInit() {
   })();
 
   // 다음 호출이 이 작업을 기다리게 연결
-  inFlight = job.catch(() => {
-  });
+  inFlight = job.catch(() => {});
   await job;
 }
 
@@ -122,27 +126,30 @@ function ensureCardId(cardNode, index) {
  * @returns {void}
  */
 function updateCard(cardNode, data, index) {
-  cardNode.dataset.id = data.id ?? '';
+  cardNode.dataset.id = data.id ?? "";
   cardNode.dataset.index = String(index);
 
-  const imgEl = cardNode.querySelector('.card-thumbnail img');
+  const imgEl = cardNode.querySelector(".card-thumbnail img");
   if (imgEl) {
-    imgEl.src = data.thumbnail || 'default.png';
-    imgEl.alt = data.lectureName || 'thumbnail';
+    imgEl.src = data.thumbnail || "default.png";
+    imgEl.alt = data.lectureName || "thumbnail";
   }
 
-  const nameEl = cardNode.querySelector('.lecture-name');
-  if (nameEl) nameEl.textContent = data.lectureName ?? '';
+  const nameEl = cardNode.querySelector(".lecture-name");
+  if (nameEl) nameEl.textContent = data.lectureName ?? "";
 
-  const introEl = cardNode.querySelector('.introduce');
-  if (introEl) introEl.textContent = data.introduce ?? '';
+  const introEl = cardNode.querySelector(".introduce");
+  if (introEl) introEl.textContent = data.introduce ?? "";
 
-  const levelEl = cardNode.querySelector('.level');
-  if (levelEl) levelEl.textContent = data.level ?? '';
+  const levelEl = cardNode.querySelector(".level").textContent;
+  if (levelEl) levelEl.textContent = data.level ?? "";
 
-  const categoryEl = cardNode.querySelector('.category');
-  if (categoryEl) categoryEl.textContent = data.category ?? '';
+  const categoryEl = cardNode.querySelector(".category");
+  if (categoryEl) categoryEl.textContent = data.category ?? "";
 
-  const dateEl = cardNode.querySelector('.card-date');
-  if (dateEl) dateEl.textContent = data.created ? new Date(data.created).toLocaleDateString() : '';
+  const dateEl = cardNode.querySelector(".card-date");
+  if (dateEl)
+    dateEl.textContent = data.created
+      ? new Date(data.created).toLocaleDateString()
+      : "";
 }

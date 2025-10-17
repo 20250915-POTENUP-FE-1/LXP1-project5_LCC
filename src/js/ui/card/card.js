@@ -1,5 +1,5 @@
-import {getStoredCourses} from "../../store/storage.js";
-import {listInit} from "../card-list/cardList.js";
+import { getStoredCourses } from "../../store/storage.js";
+import { listInit } from "../card-list/cardList.js";
 
 /**
  * 단일 강좌 카드 정보
@@ -39,32 +39,35 @@ export async function cardTemplate(course, i) {
   btn.querySelector(".lecture-name").textContent = course.lectureName;
   btn.querySelector(".introduce").textContent = course.introduce;
 
-
-  if (course.level.toUpperCase() === 'UPPER') {
+  if (course.level.toUpperCase() === "UPPER") {
     // 고급
-    btn.querySelector('.level').style.backgroundColor = '#D5FCDC';
-    btn.querySelector('.level').style.borderRight = '1px solid #D5FCDC';
-    btn.querySelector(".level").textContent = '고급'
-  } else if (course.level.toUpperCase() === 'MIDDLE') {
+    btn.querySelector(".level").style.backgroundColor = "#D5FCDC";
+    btn.querySelector(".level").style.borderRight = "1px solid #D5FCDC";
+    btn.querySelector(".level").textContent = "고급";
+  } else if (course.level.toUpperCase() === "MIDDLE") {
     // 중급
-    btn.querySelector('.level').style.backgroundColor = '#F4FEAC';
-    btn.querySelector('.level').style.borderRight = '1px solid #F4FEAC';
-    btn.querySelector(".level").textContent = '중급'
+    btn.querySelector(".level").style.backgroundColor = "#F4FEAC";
+    btn.querySelector(".level").style.borderRight = "1px solid #F4FEAC";
+    btn.querySelector(".level").textContent = "중급";
   } else {
     // 초급 (lower)
-    btn.querySelector('.level').style.backgroundColor = '#CDDAFA';
-    btn.querySelector('.level').style.borderRight = '1px solid #CDDAFA';
-    btn.querySelector(".level").textContent = '초급'
+    btn.querySelector(".level").style.backgroundColor = "#CDDAFA";
+    btn.querySelector(".level").style.borderRight = "1px solid #CDDAFA";
+    btn.querySelector(".level").textContent = "초급";
   }
 
   const cat = String(course.category).trim().toUpperCase();
 
-  if (cat === 'DEVELOP') {
-    btn.querySelector('.category').textContent = '개발';
-  } else if (cat === 'DESIGN') {
-    btn.querySelector('.category').textContent = '디자인';
+  if (cat === "DEVELOP") {
+    btn.querySelector(".category").textContent = "개발";
+  } else if (cat === "DESIGN") {
+    btn.querySelector(".category").textContent = "디자인";
+  } else if (cat === "AI") {
+    btn.querySelector(".category").textContent = "AI";
   } else {
-    btn.querySelector(".category").textContent = String(course.category).toUpperCase(); // 항상 대문자
+    btn.querySelector(".category").textContent = String(
+      course.category
+    ).toUpperCase(); // 항상 대문자
   }
 
   btn.addEventListener("click", () => {
@@ -73,8 +76,11 @@ export async function cardTemplate(course, i) {
     const course = courses[i]; // 현재 클릭한 카드의 course 객체 === {lectureName:xxx, ,category, introduce,level:xxx, id, thumbnail:이미지경로}
     // 현재 #update-form의 후손중에 #lecture-name인 요소에  course.lectureName 값 넣기
     // detailLectureModal 에서 저장버튼 누르면 로컬스토리지에서 해당 강좌 수정
-    document.querySelector("#update-form #lecture-name").value = course.lectureName;
-    document.querySelector("#update-form #forPreviewUpdate").innerHTML = `<img id="previewImage" src="${course.thumbnail}" alt="썸네일 미리보기"
+    document.querySelector("#update-form #lecture-name").value =
+      course.lectureName;
+    document.querySelector(
+      "#update-form #forPreviewUpdate"
+    ).innerHTML = `<img id="previewImage" src="${course.thumbnail}" alt="썸네일 미리보기"
        style="border-radius: 20px; width:232px; 
        border: 1px #bbb3ef solid;
        max-width: 232px;height: 164px;max-height: 164px;">`;
@@ -99,6 +105,7 @@ export async function cardTemplate(course, i) {
 
     // 수정 저장
     const updateForm = document.getElementById("update-form");
+    console.log(updateForm);
     updateForm.onsubmit = function (event) {
       event.preventDefault(); // 폼 제출 기본 동작 방지
       const courses = getStoredCourses();
