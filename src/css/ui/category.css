@@ -3,12 +3,13 @@
   display: flex;
   justify-content: end;
   overflow-x: auto;
+  gap: 16px;
 }
 
 /* 가로 나열 리스트 */
 #category-list {
   display: flex;
-  gap: 8px;
+  gap: 16px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -23,6 +24,8 @@
   border-radius: 999px;
   background: #F7F8FF;
   cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
   user-select: none;
   white-space: nowrap;
   outline: none;

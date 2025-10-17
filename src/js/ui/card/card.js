@@ -74,7 +74,10 @@ export async function cardTemplate(course, i) {
     // 현재 #update-form의 후손중에 #lecture-name인 요소에  course.lectureName 값 넣기
     // detailLectureModal 에서 저장버튼 누르면 로컬스토리지에서 해당 강좌 수정
     document.querySelector("#update-form #lecture-name").value = course.lectureName;
-    document.querySelector("#update-form #forPreviewUpdate").innerHTML = `<img id="previewImage" src="${course.thumbnail}" alt="썸네일 미리보기" style="width: 250px; height: 250px;border-radius: 20px;">`;
+    document.querySelector("#update-form #forPreviewUpdate").innerHTML = `<img id="previewImage" src="${course.thumbnail}" alt="썸네일 미리보기"
+       style="border-radius: 20px; width:232px; 
+       border: 1px #bbb3ef solid;
+       max-width: 232px;height: 164px;max-height: 164px;">`;
 
     document.querySelector("#update-form #introduce").value = course.introduce;
     document.querySelector("#update-form #level").value = course.level;

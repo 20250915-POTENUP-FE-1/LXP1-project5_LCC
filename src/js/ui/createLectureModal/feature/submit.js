@@ -70,8 +70,17 @@ export function submit(form, modal) {
     localStorage.removeItem("thumbnailImage");
     modal.style.display = 'none';
     form.reset();
+
+    const noticeBtn = document.getElementById("thumbnail-notice");
     const preview = document.getElementById("forPreview");
-    preview.innerHTML = ``;
+    preview.innerHTML = '';
+    noticeBtn.style.position = 'relative'; // span absolute 기준
+    noticeBtn.innerHTML = `
+  강의 소개하는 커버 이미지를 등록해주세요.
+  <span style="position:absolute; right:20px; top:0.75rem; color:black">
+    파일 불러오기
+  </span>
+`;
     if (storedCourses.length > pageShowCards) {
       await listInit();
     } else {

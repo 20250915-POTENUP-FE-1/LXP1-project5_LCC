@@ -9,12 +9,13 @@
       <div class="form-group" style="display: flex">
         <div
             id="forPreviewUpdate"
-            style="display: flex; justify-content: end; padding-right: 32px"
-        ></div>
-        <div
-            style="display: flex; flex-direction: column; width: 70%; gap: 16px"
+            style="display: flex; justify-content: end; padding-right: 32px; width:232px;height: 164px;max-height: 164px;"
         >
-          <div class="form-group">
+        </div>
+        <div
+            style="display: flex; flex-direction: column; width: 70%;"
+        >
+          <div class="form-group" style="margin-bottom: 32px; padding:0;">
             <label for="lecture-name">강의명</label>
             <input
                 type="text"
@@ -25,7 +26,7 @@
             />
           </div>
 
-          <div class="form-group">
+          <div class="form-group" style="margin-bottom: 0;padding:0;">
             <label for="introduce">간단 소개글</label>
             <input
                 type="text"
@@ -39,7 +40,7 @@
       </div>
 
       <div style="display: flex;">
-        <div class="form-group" style="width: 100%">
+        <div class="form-group-2" style="width: 100%; padding-left: 40px; padding-right: 16px;">
           <label for="category">카테고리</label>
           <select name="categories" id="category" class="form-input">
             <option value="ai">AI</option>
@@ -47,7 +48,7 @@
             <option value="design">디자인</option>
           </select>
         </div>
-        <div class="form-group" style="width: 100%">
+        <div class="form-group-2" style="width: 100%; padding-right: 40px; padding-left: 16px;">
           <label for="level">난이도</label>
           <select name="categories" id="level" class="form-input">
             <option value="upper">상</option>
@@ -79,9 +80,9 @@
       </div>
 
       <div class="modal-actions">
-        <button type="button" class="cancel-btn">취소</button>
-        <button type="submit" class="delete-btn">삭제</button>
-        <button type="submit" class="save-btn">저장</button>
+        <button type="submit" class="create-modal-toggle-btn" style="background-color: #E2E2E2; color: black;">삭제하기
+        </button>
+        <button type="submit" class="create-modal-toggle-btn">수정하기</button>
       </div>
     </form>
   </div>
