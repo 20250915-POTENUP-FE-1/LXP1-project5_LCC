@@ -2,7 +2,8 @@ import {pageShowCards} from "../../../../constants/contants.js";
 import {listInit} from "../../card-list/cardList.js";
 import {pageNationInit} from "../../page-nation/pageNation.js";
 import {cardTemplate} from "../../card/card.js";
- 
+import {setUrlParams} from "../../../utils/urlParams.js";
+
 /**
  * 폼안의 데이터를 전송하는 함수 (to LocalStorage)
  *
@@ -75,6 +76,7 @@ export function submit(form, modal) {
     const preview = document.getElementById("forPreview");
     preview.innerHTML = '';
     noticeBtn.style.position = 'relative'; // span absolute 기준
+    preview.innerHTML = ` <img id="preview-box" src="/src/img/img_class_thumbnail_no.svg" style="height: 164px; width: 232px;" alt="이미지 없음" />`;
     noticeBtn.innerHTML = `
   강의 소개하는 커버 이미지를 등록해주세요.
   <span style="position:absolute; right:20px; top:0.75rem; color:black">
@@ -84,7 +86,7 @@ export function submit(form, modal) {
     if (storedCourses.length > pageShowCards) {
       await listInit();
     } else {
-      const card = await cardTemplate(newCourse, storedCourses.length - 1);
+      const card = await cardTemplate(newCourse);
       document.getElementById("card-container").appendChild(card);
     }
 
@@ -94,6 +96,7 @@ export function submit(form, modal) {
       container.style.display = 'grid';
       emptyEl.remove();
     }
+    await setUrlParams('page', '1');
     await pageNationInit();
   });
 }

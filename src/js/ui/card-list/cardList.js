@@ -13,8 +13,9 @@ import {rebindCardClick} from "../../utils/rebindCardClick.js";
  */
 let inFlight = Promise.resolve();
 
-document.addEventListener("DOMContentLoaded", () => {
-  listInit().catch(console.error);
+document.addEventListener("DOMContentLoaded", async () => {
+  const page = await getUrlParams('page');
+  listInit(Number(page)).catch(console.error);
 });
 
 /**
@@ -85,7 +86,7 @@ export async function listInit(pageOverride = 1) {
         ensureCardId(node, data.id);
         updateCard(node, data);
       } else if (data && !node) {
-        const newCard = await cardTemplate(data, data.id);
+        const newCard = await cardTemplate(data);
         ensureCardId(newCard, data.id);
         container.appendChild(newCard);
       } else if (!data && node) {
@@ -95,7 +96,8 @@ export async function listInit(pageOverride = 1) {
   })();
 
   // 다음 호출이 이 작업을 기다리게 연결
-  inFlight = job.catch(() => {});
+  inFlight = job.catch(() => {
+  });
   await job;
 }
 

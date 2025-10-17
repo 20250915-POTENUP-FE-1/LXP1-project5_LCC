@@ -1,6 +1,8 @@
 import {getStoredCourses} from "../../store/storage.js";
 import {listInit} from "../card-list/cardList.js";
 import {applyCategoryUI, applyLevelUI} from "../../utils/format.js";
+import {getUrlParams} from "../../utils/urlParams.js";
+import {pageNationInit} from "../page-nation/pageNation.js";
 
 /**
  * 단일 강좌 카드 정보
@@ -16,7 +18,6 @@ import {applyCategoryUI, applyLevelUI} from "../../utils/format.js";
  * 카드 템플릿을 생성하여 데이터 바인딩 후 버튼 요소를 반환한다.
  *
  * @param {Course} course - 카드에 바인딩할 강좌 데이터
- * @param {number} i - 카드 인덱스(요소 id 및 data-속성 식별자 생성에 사용)
  * @returns {Promise<HTMLButtonElement>} 생성된 카드 버튼 요소
  *
  * @example
@@ -29,7 +30,7 @@ import {applyCategoryUI, applyLevelUI} from "../../utils/format.js";
  * const btn = await cardTemplate(course, 3); // 이렇게 불러 옴 비동기 이니까 앞에 await을 붙혀주세요.
  * document.getElementById("card-container").appendChild(btn);
  */
-export async function cardTemplate(course, i) {
+export async function cardTemplate(course) {
   const res = await fetch("/src/js/ui/card/cardTemplate.html"); // 경로는 HTML 기준이 아니라 JS 기준으로 조정 필요
   const htmlText = await res.text();
 
@@ -38,10 +39,10 @@ export async function cardTemplate(course, i) {
 
   const btn = doc.querySelector("button.card");
 
-  btn.id = `card-${i}`;
+  btn.id = `card-${course.id}`;
   btn.title = String(course.created);
   btn.querySelector("img").src = course.thumbnail;
-  btn.querySelector(".lecture-name").textContent = course.lectureName + `  id: ${i}`;
+  btn.querySelector(".lecture-name").textContent = course.lectureName + `  id: ${course.id}`;
   btn.querySelector(".introduce").textContent = course.introduce;
 
   const levelEl = btn.querySelector('.level');
@@ -49,17 +50,16 @@ export async function cardTemplate(course, i) {
 
   const catEl = btn.querySelector('.category');
   applyCategoryUI(catEl, course.category);
-
-  btn.addEventListener("click", () => cardBtnOption(i));
+  btn.addEventListener("click", async () => await cardBtnOption(course.id));
 
   return btn;
 }
 
 export async function cardBtnOption(i) {
   const courses = getStoredCourses(); // [{lectureName:xxx, level:xxx}, {}]
-  const course = courses[i]; // 현재 클릭한 카드의 course 객체 === {lectureName:xxx, ,category, introduce,level:xxx, id, thumbnail:이미지경로}
-  console.log(course.id);
-  console.log(course);
+  console.log(courses);
+  console.log(i);
+  const course = courses.find(c => String(c.id) === String(i));
   document.querySelector("#update-form #lecture-name").value = course.lectureName;
   document.querySelector("#update-form #forPreviewUpdate").innerHTML = `<img id="previewImage" src="${course.thumbnail}" alt="썸네일 미리보기"
        style="border-radius: 20px; width:232px; 
@@ -68,10 +68,31 @@ export async function cardBtnOption(i) {
   document.querySelector("#update-form #introduce").value = course.introduce;
   document.querySelector("#update-form #level").value = course.level;
   document.querySelector("#update-form #category").value = course.category.toLowerCase();
+
+  const deleteBtn = document.querySelector(".delete-btn");
+  deleteBtn.onclick = function () {
+    const yes = confirm("정말 삭제하시겠습니까?");
+    if (!yes) return;
+    console.log(yes);
+
+    const delIndex = courses.findIndex(c => String(c.id) === String(i));
+    if (delIndex < 0) return;
+
+    courses.splice(course.id, 1); // i번째 요소 삭제
+    localStorage.setItem("courses", JSON.stringify(courses)); // 로컬스토리지 업데이트
+    listInit();
+    if (courses.length === 0) {
+      pageNationInit();
+    }
+
+    // 모달 닫기
+    document.getElementById("detailLecture").style.display = "none";
+    document.getElementById("detailLecture").classList.remove("active");
+  };
+
   const updateForm = document.getElementById("update-form");
-  updateForm.onsubmit = function (event) {
+  updateForm.onsubmit = async function (event) {
     event.preventDefault(); // 폼 제출 기본 동작 방지
-    const courses = getStoredCourses();
     const updatedCourse = {
       ...courses[i], // 기존 데이터 유지
       lectureName: document.querySelector("#update-form #lecture-name").value,
@@ -83,7 +104,8 @@ export async function cardBtnOption(i) {
 
     courses[i] = updatedCourse;
     localStorage.setItem("courses", JSON.stringify(courses)); // 로컬스토리지 업데이트
-    listInit();
+    const page = await getUrlParams('page');
+    await listInit(Number(page));
 
     // 모달 닫아주기
     document.getElementById("detailLecture").style.display = "none";

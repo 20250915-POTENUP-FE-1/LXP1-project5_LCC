@@ -38,12 +38,9 @@ DOMReady(function () {
     const value = e.target.value;
     await setUrlParams('sort', value);
     await setUrlParams('page', '1');
-    const category = await getUrlParams('category');
-    const courses = getStoredCourses();
-    const filtered = (category === 'all' || category === '' || category == null) ? courses : courses.filter(c => String(c.category).toLowerCase() === category.toLowerCase());
-    console.log(filtered);
+    console.log();
 
-    await pageNationInit(filtered.length);
+    await pageNationInit();
     await listInit();
   });
 })

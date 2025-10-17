@@ -2,14 +2,17 @@ import {getStoredCourses} from "../../store/storage.js";
 import {pageBtnTemplate} from "./page-btn/pageBtn.js";
 import {pageShowCards} from "../../../constants/contants.js";
 import {listInit} from "../card-list/cardList.js";
-import {setUrlParams} from "../../utils/urlParams.js";
+import {getUrlParams, setUrlParams} from "../../utils/urlParams.js";
 
 let pageClickBound = false;
 
 await pageNationInit();
 
-export async function pageNationInit(page = getStoredCourses().length) {
-  const pageNationBtnCount = Math.ceil(page / pageShowCards);
+export async function pageNationInit() {
+  const category = await getUrlParams('category') || 'all';
+  const norm = String(category).toLowerCase();
+  const filtered = (norm === 'all' || norm === '' || norm == null) ? getStoredCourses() : getStoredCourses().filter(c => String(c.category).toLowerCase() === norm);
+  const pageNationBtnCount = Math.ceil(filtered.length / pageShowCards);
   await renderPageButtons(pageNationBtnCount);
 
   if (!pageClickBound) {

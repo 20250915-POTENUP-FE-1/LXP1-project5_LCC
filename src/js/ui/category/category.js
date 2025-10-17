@@ -1,5 +1,4 @@
-import {setUrlParams} from "../../utils/urlParams.js";
-import {getStoredCourses} from "../../store/storage.js";
+import {getUrlParams, setUrlParams} from "../../utils/urlParams.js";
 import {pageNationInit} from "../page-nation/pageNation.js";
 import {category} from "./category-data.js";
 import {categoryBtnTemplate} from "./category-btn/categoryBtn.js";
@@ -18,6 +17,15 @@ function init() {
     const li = e.target.closest('.category-chip');
     if (!li) return;
 
+    const key = String(li.dataset.key || '').toLowerCase();
+    const current = String(await getUrlParams('category') || 'all').toLowerCase();
+
+    if (key === current && li.classList.contains('is-active')) {
+      // 선택사항: 살짝 튕김 방지용으로 포커스만 유지/해제
+      // e.preventDefault();
+      return;
+    }
+
     // 1) 같은 컨테이너 범위에서 모두 비활성화
     const container = li.closest('#category-nav') || document;
     container.querySelectorAll('.category-chip.is-active').forEach(chip => {
@@ -26,7 +34,6 @@ function init() {
     });
 
     // 2) URL 갱신
-    const key = li.dataset.key;
     setUrlParams('category', key);
     setUrlParams('page', '1');
 
@@ -35,8 +42,6 @@ function init() {
     li.setAttribute('aria-pressed', 'true');
 
     // 4) 데이터 필터 + 페이지 슬라이스
-    const all = getStoredCourses();
-    const filtered = (key === 'all') ? all : all.filter(c => String(c.category).toLowerCase() === key.toLowerCase());
     const page = getCurrentPage();
 
     // 5) '전체 비우기' 없이 차이만 반영
@@ -44,7 +49,7 @@ function init() {
     await listInit(page);
 
     // 6) 페이지네이션 갱신(총 개수만 변경)
-    await pageNationInit(filtered.length);
+    await pageNationInit();
   });
 }
 
