@@ -5,48 +5,23 @@
       <button class="modal-close">&times;</button>
     </div>
     <form id="create-form" class="modal-form">
-      <input type="hidden" id="course" />
       <div class="form-group" style="display: flex">
-        <div
-          id="forPreview"
-          style="display: flex; justify-content: end; padding-right: 32px"
-        ></div>
-        <div
-          id="forPreviewUpdate"
-          style="
-            display: flex;
-            justify-content: end;
-            padding-right: 32px;
-            width: 232px;
-            height: 164px;
-            max-height: 164px;
-          "
-        ></div>
-
-        <div style="display: flex; flex-direction: column; width: 100%">
-          <div class="form-group" style="margin-bottom: 32px; padding: 0">
+        <div id="forPreview" style="display: flex; justify-content: end; padding-right: 32px">
+          <img id="preview-box" src="/src/img/img_class_thumbnail_no.svg" style="height: 164px; width: 232px;" alt="이미지 없음" />
+        </div>
+        <div style="display: flex; flex-direction: column; width: 70%;">
+          <div class="form-group" style="margin-bottom: 32px; padding:0;">
             <label for="lecture-name">강의명</label>
-            <input
-              type="text"
-              id="lecture-name"
-              class="form-input"
-              placeholder="강의명을 입력해주세요."
-              required
-            />
+            <input type="text" id="lecture-name" class="form-input" placeholder="강의명을 입력해주세요." required />
           </div>
 
-          <div class="form-group" style="margin-bottom: 0; padding: 0">
+          <div class="form-group" style="margin-bottom: 0;padding:0;">
             <label for="introduce">간단 소개글</label>
-            <input
-              type="text"
-              id="introduce"
-              class="form-input"
-              placeholder="설명 글에 소개할 글을 간단하게 작성해주세요."
-              required
-            />
+            <input type="text" id="introduce" class="form-input" placeholder="설명 글에 소개할 글을 간단하게 작성해주세요." required />
           </div>
         </div>
       </div>
+
       <div style="display: flex; ">
         <div class="form-group-2" style="width: 100%; padding-left: 40px; padding-right: 16px;">
 
@@ -71,29 +46,20 @@
       </div>
       <div class="form-group">
         <label for="thumbnail">미디어 파일</label>
-        <button
-            id="thumbnail-notice"
-            class="form-input"
-            type="button"
-            style="position: relative; text-align: left"
-        >
+
+        <!-- 파일 선택 버튼 + 실제 input -->
+        <button id="thumbnail-notice" class="form-input" type="button" style="position: relative; text-align: left">
           강의 소개하는 커버 이미지를 등록해주세요.
-          <span
-            style="position: absolute; right: 20px; top: 0.75rem; color: black"
-          >
+          <span style="position: absolute; right: 20px; top: 0.75rem; color: black">
             파일 불러오기
           </span>
         </button>
-        <input
-          id="thumbnail"
-          type="file"
-          accept="image/*"
-          style="display: none"
-        />
+        <input id="thumbnail" type="file" accept="image/*" hidden>
+
       </div>
 
       <div class="modal-actions">
-        <!--        <button type="button" class="create-modal-toggle-btn">취소하기</button>-->
+        <!--        <button type="button" class="create-modal-toggle-btn">취소하기</button>  -->
         <button type="submit" class="create-modal-toggle-btn">저장하기</button>
       </div>
     </form>

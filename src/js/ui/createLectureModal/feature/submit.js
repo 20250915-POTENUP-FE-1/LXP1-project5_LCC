@@ -2,7 +2,7 @@ import {pageShowCards} from "../../../../constants/contants.js";
 import {listInit} from "../../card-list/cardList.js";
 import {pageNationInit} from "../../page-nation/pageNation.js";
 import {cardTemplate} from "../../card/card.js";
-
+ 
 /**
  * 폼안의 데이터를 전송하는 함수 (to LocalStorage)
  *
