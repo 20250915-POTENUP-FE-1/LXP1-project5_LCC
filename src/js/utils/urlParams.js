@@ -1,19 +1,20 @@
 /**
  * URL에 파라메타를 추가하는 함수.
- * @param key {'all' | 'AI' | 'develop' | 'design'}
+ * @param key {string}
+ * @param value {string}
  */
-export function setUrlParams(key) {
+export function setUrlParams(key, value) {
   const url = new URL(window.location.href);
   const params = url.searchParams;
 
   if (!key || key === 'all') {
-    params.delete('category');    // 전체면 제거
+    params.delete(key);    // 전체면 제거
   } else {
-    params.set('category', key);        // 예: develop, AI, design
+    params.set(key, value);        // 예: develop, AI, design
   }
 
   url.search = params.toString();
-  history.pushState({category: key ?? null}, '', url);
+  history.pushState({category: value ?? null}, '', url);
 }
 
 /**

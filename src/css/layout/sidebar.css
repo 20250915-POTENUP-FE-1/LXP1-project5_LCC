@@ -1,27 +1,131 @@
+.app {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
 .sidebar {
-  width: 300px;
-  height: 100%;
-  background: #D9D9D9;
+  width: 240px;
+  height: 100vh;
+  background: #ffffff;
   z-index: 100;
   display: flex;
   flex-direction: column;
-  align-items: center;
   position: fixed;
+  border-right: 1px solid #E9E9E9;
 }
 
-.logo {
-  width: 95%;
-  height: 50px;
-  min-height: 50px;
-  background: #fff;
+.sidebar__title {
+  color: #000;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding-top: 32px;
+}
+
+.sidebar__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+
+/* 아이콘 자리 추가: 각 항목 링크 앞에 24x24 아이콘 */
+.sidebar__link {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 7px;
-  margin-bottom: 7px;
+  gap: 12px;
+  min-width: 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #fff;
+  background-clip: padding-box;
 }
 
-.sidebar-menu, .second-sidebar-menu {
+
+.sidebar__text {
+  color: #666;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* 가상요소 아이콘(예: SVG/PNG) */
+.sidebar__link::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url("/icons/bookmark.svg");
+  background-repeat: no-repeat;
+  /* 반복 방지 */
+  /* [web:90] */
+  background-size: 24px 24px;
+
+}
+
+
+/* 순서나 식별 클래스 기반으로 개별 아이콘 매핑 */
+.sidebar__item:nth-child(1) .sidebar__link::before {
+  background-image: url("/src/img/icn_myClass.svg");
+}
+
+/* My 강의 */
+/* [web:87][web:90] */
+.sidebar__item:nth-child(2) .sidebar__link::before {
+  background-image: url("/src/img/icn_dataUpload.svg");
+}
+
+/* 자료등록 */
+/* [web:87][web:90] */
+.sidebar__item:nth-child(3) .sidebar__link::before {
+  background-image: url("/src/img/icn_management.svg");
+}
+
+/* 수강관리 */
+/* [web:87][web:90] */
+.sidebar__item:nth-child(4) .sidebar__link::before {
+  background-image: url("/src/img/icn_attendance.svg");
+}
+
+/* 출석부 */
+/* [web:87][web:90] */
+.sidebar__item:nth-child(5) .sidebar__link::before {
+  background-image: url("/src/img/icn_dashboard.svg");
+}
+
+/* 대시보드 */
+/* [web:87][web:90] */
+.sidebar__item--active .sidebar__link {
+  color: #111;
+  font-weight: 600;
+  outline: 2px solid transparent;
+}
+
+.sidebar__icon {
+  width: 24px;
+  height: 24px;
+  background: #bbb;
+  border-radius: 4px;
+}
+
+
+.logo {
+background-image: url("/src/img/LOGO_LCC.svg");
+width:118px;
+height: 30px;
+}
+
+.sidebar-menu,
+.second-sidebar-menu {
   width: 90%;
   height: 50%;
 }
@@ -40,3 +144,4 @@
   padding: 0;
   margin: 0;
 }
+

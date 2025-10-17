@@ -1,4 +1,4 @@
-import {detailLectureModal} from "../ui/detailLectureModal/detailLectureModal.js";
+// import {detailLectureModal} from "../ui/detailLectureModal/detailLectureModal.js";
 
 document.addEventListener("click", async (e) => {
   const btn = e.target.closest(".modal-toggle-btn");
@@ -8,7 +8,7 @@ document.addEventListener("click", async (e) => {
   const targetId = btn.dataset.modalTarget;
 
   // todo 동적 모달은 생성은 해야 하는데 고민 해야함
-  if (targetId.includes("detail")) await detailLectureModal(targetId);
+  // if (targetId.includes("detail")) await detailLectureModal(targetId);
 
   const modal = document.getElementById(targetId);
 
@@ -25,13 +25,15 @@ document.addEventListener("click", async (e) => {
  * @returns void
  * */
 export function settingCloseModal(modal) {
-  modal.querySelector('.modal-close')
-    .addEventListener('click', () => closeModal(modal));
+  modal
+    .querySelector(".modal-close")
+    .addEventListener("click", () => closeModal(modal));
   // 모달 내의 취소 버튼 클릭시 모달 닫기
-  modal.querySelector('.cancel-btn')
-    .addEventListener('click', () => closeModal(modal));
+  // modal
+  //   .querySelector(".cancel-btn")
+  //   .addEventListener("click", () => closeModal(modal));
   // 모달 배경 클릭시 모달 닫기
-  modal.addEventListener('click', function (e) {
+  modal.addEventListener("click", function (e) {
     e.target === modal && closeModal(modal);
   });
 }
@@ -42,12 +44,10 @@ export function settingCloseModal(modal) {
  * @returns void
  * */
 function closeModal(modal) {
-  modal.style.display = 'none';
+  modal.style.display = "none";
   if (modal.querySelectorAll("form")) {
     modal.querySelectorAll("form").forEach((form) => {
       form.reset();
     });
   }
 }
-
-

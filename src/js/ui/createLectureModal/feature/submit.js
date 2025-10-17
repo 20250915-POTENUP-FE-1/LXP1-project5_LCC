@@ -1,3 +1,6 @@
+import {pageShowCards} from "../../../../constants/contants.js";
+import {listInit} from "../../card-list/cardList.js";
+import {pageNationInit} from "../../page-nation/pageNation.js";
 import {cardTemplate} from "../../card/card.js";
 
 /**
@@ -11,26 +14,52 @@ export function submit(form, modal) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault(); // 기본 새로고침 방지
 
-    const lectureName = document.getElementById("lecture-name").value.trim();
-    const category = document.getElementById("category").value;
-    const level = document.getElementById("level").value;
-    const introduce = document.getElementById("introduce").value.trim();
-    const thumbnail = document.getElementById("previewImage").src;
+    const lectureName = document.querySelector("#create-form #lecture-name").value.trim();
+    const category = document.querySelector("#create-form #category").value.trim();
+    const level = document.querySelector("#create-form #level").value.trim();
+    const introduce = document.querySelector("#create-form #introduce").value.trim();
+    const thumbnail = document.querySelector("#create-form #previewImage").src;
+    const created = new Date();
 
-    const id = JSON.parse(localStorage.getItem("courses")).length ?? 0;
+    const id = localStorage.getItem("courses") ? JSON.parse(localStorage.getItem("courses")).length : 0;
 
-    if (!lectureName || !category || !level || !introduce) {
-      alert("모든 필드를 입력해주세요.");
+    if (!lectureName) {
+      console.log("lecture name is empty", lectureName);
+      alert("강의명을 입력해주세요.");
+      return;
+    }
+
+    if (!category) {
+      console.log("category is empty", category);
+      alert("카테고리를 선택해주세요.");
+      return;
+    }
+
+    if (!level) {
+      console.log("level is empty", level);
+      alert("난이도를 선택해주세요.");
+      return;
+    }
+
+    if (!introduce) {
+      console.log("introduce is empty", introduce);
+      alert("소개글을 입력해주세요.");
       return;
     }
 
     if (!thumbnail) {
-      alert("썸네일 이미지를 등록해주세요.");
+      console.log("thumbnail is empty", thumbnail);
+      alert("미디어 파일을 등록해주세요.");
+      return;
+    }
+
+    if (!thumbnail) {
+      alert("미디어 파일을 등록해주세요.");
       return;
     }
 
     const newCourse = {
-      lectureName, introduce, level, category, thumbnail, id
+      lectureName, introduce, level, category, thumbnail, id, created
     };
 
     const storedCourses = JSON.parse(localStorage.getItem("courses")) || [];
@@ -41,7 +70,24 @@ export function submit(form, modal) {
     localStorage.removeItem("thumbnailImage");
     modal.style.display = 'none';
     form.reset();
-    const card = await cardTemplate(newCourse, storedCourses.length - 1);
-    document.getElementById("card-container").appendChild(card);
+
+    const noticeBtn = document.getElementById("thumbnail-notice");
+    const preview = document.getElementById("forPreview");
+    preview.innerHTML = '';
+    noticeBtn.style.position = 'relative'; // span absolute 기준
+    noticeBtn.innerHTML = `
+  강의 소개하는 커버 이미지를 등록해주세요.
+  <span style="position:absolute; right:20px; top:0.75rem; color:black">
+    파일 불러오기
+  </span>
+`;
+    if (storedCourses.length > pageShowCards) {
+      await listInit();
+    } else {
+      const card = await cardTemplate(newCourse, storedCourses.length - 1);
+      document.getElementById("card-container").appendChild(card);
+    }
+
+    await pageNationInit();
   });
 }

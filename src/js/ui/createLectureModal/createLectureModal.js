@@ -14,13 +14,15 @@ document
  * @returns {Promise<Element>}
  */
 async function createLectureModal() {
-  const res = await fetch('/src/js/ui/createLectureModal/createLectureModalTemplate.html');
+  const res = await fetch(
+    "/src/js/ui/createLectureModal/createLectureModalTemplate.html"
+  );
   const htmlText = await res.text();
   const categoryData = categoryExceptKeyAll;
 
   const doc = new DOMParser().parseFromString(htmlText, "text/html");
   const clm = doc.querySelector("#createLectureModal");
-  const sel = clm.querySelector(`select[name="categories"]`)
+  const sel = clm.querySelector(`select[name="categories"]`);
   sel.innerHTML = "";
   const ph = document.createElement("option");
   ph.value = "";
@@ -31,10 +33,10 @@ async function createLectureModal() {
 
   // 성능을 위해 fragment 사용
   const frag = document.createDocumentFragment();
-  for (const {value, key} of categoryExceptKeyAll) {
+  for (const { value, key } of categoryExceptKeyAll) {
     const opt = document.createElement("option");
-    opt.value = key;          // 제출 값
-    opt.textContent = value;  // 표시 라벨
+    opt.value = key; // 제출 값
+    opt.textContent = value; // 표시 라벨
     if (categoryData[0].key && categoryData[0].key === key) opt.selected = true;
     frag.appendChild(opt);
   }
@@ -59,4 +61,4 @@ openFileInput(noticeBtn, fileInput);
 fileInsert(noticeBtn, fileInput, preview);
 
 // 전송
-submit(form, modal)
+submit(form, modal);
