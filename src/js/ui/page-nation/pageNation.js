@@ -2,6 +2,7 @@ import {getStoredCourses} from "../../store/storage.js";
 import {pageBtnTemplate} from "./page-btn/pageBtn.js";
 import {pageShowCards} from "../../../constants/contants.js";
 import {listInit} from "../card-list/cardList.js";
+import {getUrlParams, setUrlParams} from "../../utils/urlParams.js";
 
 let pageClickBound = false;
 let currentPage = 1;
@@ -22,10 +23,11 @@ async function onPageClick(e) {
   const btn = e.target.closest(".page-btn");
   if (!btn) return;
 
+  setUrlParams('page', btn.dataset.page.trim());
   // data-page를 쓰는 게 안전 (공백 방지)
   currentPage = Number(btn.dataset.page ?? btn.textContent.trim());
   updateActivePageButton(currentPage);
-  await listInit(currentPage);
+  await listInit();
 }
 
 function updateActivePageButton(page) {

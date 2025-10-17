@@ -29,7 +29,6 @@ const DOMReady = function (callback) {
 };
 
 DOMReady(function () {
-  console.log('DOMContentLoaded');
   const sortSelect = document.getElementById('sort-select');
   if (!sortSelect) return;
 

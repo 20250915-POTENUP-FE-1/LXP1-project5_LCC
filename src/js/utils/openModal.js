@@ -29,9 +29,9 @@ export function settingCloseModal(modal) {
     .querySelector(".modal-close")
     .addEventListener("click", () => closeModal(modal));
   // 모달 내의 취소 버튼 클릭시 모달 닫기
-  modal
-    .querySelector(".cancel-btn")
-    .addEventListener("click", () => closeModal(modal));
+  // modal
+  //   .querySelector(".cancel-btn")
+  //   .addEventListener("click", () => closeModal(modal));
   // 모달 배경 클릭시 모달 닫기
   modal.addEventListener("click", function (e) {
     e.target === modal && closeModal(modal);

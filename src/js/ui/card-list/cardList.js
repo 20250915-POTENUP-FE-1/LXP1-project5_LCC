@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * // 페이지 이동
  * await listInit(2);
  */
-export async function listInit(page = 1) {
+export async function listInit() {
   // 이전 작업 끝날 때까지 대기 (직렬화)
   await inFlight;
 
@@ -39,6 +39,7 @@ export async function listInit(page = 1) {
 
     const courses = getStoredCourses();
     const category = await getUrlParams('category') || 'all';
+    const page = await getUrlParams('page') || '1';
     const sort = await getUrlParams('sort') || 'new';
     const norm = String(category).toLowerCase();
     const lowerSort = String(sort).toLowerCase();

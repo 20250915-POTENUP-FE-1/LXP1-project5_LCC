@@ -1,6 +1,7 @@
+import {getUrlParams} from "../../../utils/urlParams.js";
+
 /**
  *
- * @param value {number} 여기는 페이지 범위가 나온다.
  * @returns {Promise<Element>}
  */
 export async function pageBtnTemplate(value) {
@@ -10,7 +11,10 @@ export async function pageBtnTemplate(value) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlText, "text/html");
   const pageBtn = doc.querySelector(".page-btn");
-  if (value == 1) {
+
+  const page = await getUrlParams('page') || '1';
+
+  if (value == page) {
     pageBtn.classList.add("is-active");
   }
   pageBtn.textContent = String(value);

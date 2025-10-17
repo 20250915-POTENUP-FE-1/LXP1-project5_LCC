@@ -16,6 +16,8 @@ function init() {
   });
 
   document.addEventListener('click', async (e) => {
+    setUrlParams('page', '1');
+
     const li = e.target.closest('.category-chip');
     if (!li) return;
 
@@ -36,9 +38,7 @@ function init() {
 
     // 4) 데이터 필터 + 페이지 슬라이스
     const all = getStoredCourses();
-    const filtered = (key === 'all')
-      ? all
-      : all.filter(c => String(c.category).toLowerCase() === key.toLowerCase());
+    const filtered = (key === 'all') ? all : all.filter(c => String(c.category).toLowerCase() === key.toLowerCase());
 
     // 페이지는 유지(또는 필요시 1로 리셋)
     // setUrlParams('page', 1)
