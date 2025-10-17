@@ -1,1 +1,1 @@
-export const pageShowCards = 8;
+export const pageShowCards = 4;

@@ -39,11 +39,8 @@ html,
 body {
   height: 100%;
   margin: 0;
-  /* 기본 여백 제거 */
   min-height: 100vh;
-  /* 화면 전체 덮기 */
-  font-family: var(--font-sans);
-  /* Pretendard - 폰트 전역 설정. */
+  font-family: Pretendard;
 }
 
 .container {

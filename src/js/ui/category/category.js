@@ -16,8 +16,6 @@ function init() {
   });
 
   document.addEventListener('click', async (e) => {
-    setUrlParams('page', '1');
-
     const li = e.target.closest('.category-chip');
     if (!li) return;
 
@@ -31,6 +29,7 @@ function init() {
     // 2) URL 갱신
     const key = li.dataset.key;
     setUrlParams('category', key);
+    setUrlParams('page', '1');
 
     // 3) 클릭한 것만 활성화
     li.classList.add('is-active');

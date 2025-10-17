@@ -2,6 +2,7 @@ import {getStoredCourses} from "../../store/storage.js";
 import {cardTemplate} from "../card/card.js";
 import {getUrlParams} from "../../utils/urlParams.js";
 import {pageShowCards} from "../../../constants/contants.js";
+import {notFoundTemplate} from "../not-found/notFound.js";
 
 /**
  * 현재 진행 중인 렌더 작업을 직렬화하기 위한 Promise.
@@ -62,19 +63,28 @@ export async function listInit() {
     const existingCards = Array.from(container.querySelectorAll(':scope > .card'));
 
     const maxLen = Math.max(existingCards.length, pageCourses.length);
-    for (let i = 0; i < maxLen; i++) {
-      const data = pageCourses[i];
-      const node = existingCards[i];
+    if (pageCourses.length === 0) {
+      Array.from(container.querySelectorAll(':scope > .card')).forEach(el => el.remove());
+      // 기존 empty 제거 후 다시 추가
+      container.querySelector('#card-empty')?.remove();
+      const empty = await notFoundTemplate(); // <- 여기서 반환되는 루트에 id="card-empty" 있어야 함
+      container.style.display = 'block';
+      container.appendChild(empty);
+    } else {
+      for (let i = 0; i < maxLen; i++) {
+        const data = pageCourses[i];
+        const node = existingCards[i];
 
-      if (data && node) {
-        ensureCardId(node, i);
-        updateCard(node, data, i);
-      } else if (data && !node) {
-        const newCard = await cardTemplate(data, i);
-        ensureCardId(newCard, i);
-        container.appendChild(newCard);
-      } else if (!data && node) {
-        node.remove();
+        if (data && node) {
+          ensureCardId(node, i);
+          updateCard(node, data, i);
+        } else if (data && !node) {
+          const newCard = await cardTemplate(data, i);
+          ensureCardId(newCard, i);
+          container.appendChild(newCard);
+        } else if (!data && node) {
+          node.remove();
+        }
       }
     }
   })();
@@ -123,7 +133,7 @@ function ensureCardId(cardNode, index) {
  */
 function updateCard(cardNode, data, index) {
   cardNode.dataset.id = data.id ?? '';
-  cardNode.dataset.index = String(index);
+  cardNode.dataset.index = String(data.id);
 
   const imgEl = cardNode.querySelector('.card-thumbnail img');
   if (imgEl) {

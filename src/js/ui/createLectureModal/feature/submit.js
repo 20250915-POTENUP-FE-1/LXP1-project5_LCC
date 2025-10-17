@@ -88,6 +88,12 @@ export function submit(form, modal) {
       document.getElementById("card-container").appendChild(card);
     }
 
+    const emptyEl = document.querySelector('#card-empty');
+    if (emptyEl) {
+      const container = document.getElementById("card-container");
+      container.style.display = 'grid';
+      emptyEl.remove();
+    }
     await pageNationInit();
   });
 }
