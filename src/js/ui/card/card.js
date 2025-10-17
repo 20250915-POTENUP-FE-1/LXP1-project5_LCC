@@ -57,8 +57,6 @@ export async function cardTemplate(course, i) {
     btn.querySelector(".level").textContent = '초급'
   }
 
-
-
   const cat = String(course.category).trim().toUpperCase();
 
   if (cat === 'DEVELOP') {
@@ -69,10 +67,6 @@ export async function cardTemplate(course, i) {
     btn.querySelector(".category").textContent = String(course.category).toUpperCase(); // 항상 대문자
   }
 
-
-
-
-  // btn == lecture == card
   btn.addEventListener("click", () => {
     //console.log(getStoredCourses());
     const courses = getStoredCourses(); // [{lectureName:xxx, level:xxx}, {}]
