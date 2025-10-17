@@ -5,6 +5,8 @@
 @import "./ui/category.css";
 @import "./ui/date-order-select.css";
 @import "./ui/page-nation.css";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
 
 :root {
   /* Pretendard - 폰트 전역 설정. */
