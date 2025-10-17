@@ -58,9 +58,8 @@ export async function cardTemplate(course) {
 
 export async function cardBtnOption(i) {
   const courses = getStoredCourses(); // [{lectureName:xxx, level:xxx}, {}]
-  console.log(courses);
-  console.log(i);
   const course = courses.find(c => String(c.id) === String(i));
+  console.log(course);
   document.querySelector("#update-form #lecture-name").value = course.lectureName;
   document.querySelector("#update-form #forPreviewUpdate").innerHTML = `<img id="previewImage" src="${course.thumbnail}" alt="썸네일 미리보기"
        style="border-radius: 20px; width:232px; 
@@ -74,16 +73,18 @@ export async function cardBtnOption(i) {
   deleteBtn.onclick = function () {
     const yes = confirm("정말 삭제하시겠습니까?");
     if (!yes) return;
+    console.log(i)
 
-    const delIndex = courses.findIndex(c => String(c.id) === String(i));
+    const delIndex = courses.findIndex(c => String(c.id).toLowerCase().trim() === String(i).trim().toLowerCase());
+    console.log(courses);
+    console.log(delIndex);
     if (delIndex < 0) return;
     const category = getUrlParams('category');
     const norm = String(category).toLowerCase();
     const filtered = (norm === 'all' || norm === '' || norm == null) ? courses : courses.filter(c => String(c.category).toLowerCase() === norm);
 
-    courses.splice(course.id, 1); // i번째 요소 삭제
+    courses.splice(delIndex, 1); // i번째 요소 삭제
     localStorage.setItem("courses", JSON.stringify(courses)); // 로컬스토리지 업데이트
-    console.log(courses);
     listInit();
     if (filtered.length % pageShowCards === 0 || courses.length === 0) {
       pageNationInit();

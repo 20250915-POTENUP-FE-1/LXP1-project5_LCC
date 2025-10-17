@@ -3,6 +3,7 @@ import {listInit} from "../../card-list/cardList.js";
 import {pageNationInit} from "../../page-nation/pageNation.js";
 import {cardTemplate} from "../../card/card.js";
 import {setUrlParams} from "../../../utils/urlParams.js";
+import {generateId} from "../../../utils/ensureUniqueId.js";
 
 /**
  * 폼안의 데이터를 전송하는 함수 (to LocalStorage)
@@ -23,8 +24,7 @@ export function submit(form, modal) {
     const thumbnail = imgEl?.src?.trim() || "";
     const created = new Date();
 
-    const id = localStorage.getItem("courses") ? JSON.parse(localStorage.getItem("courses")).length : 0;
-
+    const id = generateId();
     if (!lectureName) {
       console.log("lecture name is empty", lectureName);
       alert("강의명을 입력해주세요.");
