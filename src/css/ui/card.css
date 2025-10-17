@@ -41,7 +41,6 @@
 
 
 .card {
-  display: flex;
   border: 0;
   width: 288px;
   padding: 16px;
@@ -52,6 +51,11 @@
   border-radius: 16px;
   text-decoration: none;
   background: #FFF;
+  transition: opacity 0.2s;
+}
+
+.card:hover {
+  opacity: 0.75;
 }
 
 .card-thumbnail img {
@@ -157,7 +161,6 @@
 
 /* 섹션 래퍼: 제목/버튼과 그리드를 하나로 묶음 */
 .cards-section {
-  padding-top: 80px;
   width: calc(100% - 40px);
   max-width: 1248px;
   height: 100%;
@@ -176,7 +179,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  /* padding: 11px; */
+  padding-top: 80px;
 }
 
 /* 제목 스타일(필요 시) */
@@ -280,5 +283,3 @@
 #card-empty[aria-hidden="true"] {
   display: none;
 }
-
-

@@ -1,6 +1,7 @@
 import {pageShowCards} from "../../../../constants/contants.js";
 import {listInit} from "../../card-list/cardList.js";
 import {pageNationInit} from "../../page-nation/pageNation.js";
+import {cardTemplate} from "../../card/card.js";
 
 /**
  * 폼안의 데이터를 전송하는 함수 (to LocalStorage)
@@ -73,6 +74,9 @@ export function submit(form, modal) {
     preview.innerHTML = ``;
     if (storedCourses.length > pageShowCards) {
       await listInit();
+    } else {
+      const card = await cardTemplate(newCourse, storedCourses.length - 1);
+      document.getElementById("card-container").appendChild(card);
     }
 
     await pageNationInit();
