@@ -1,7 +1,7 @@
 import {getStoredCourses} from "../../store/storage.js";
 import {listInit} from "../card-list/cardList.js";
 import {applyCategoryUI, applyLevelUI} from "../../utils/format.js";
-import {getUrlParams} from "../../utils/urlParams.js";
+import {getUrlParams, setUrlParams} from "../../utils/urlParams.js";
 import {pageNationInit} from "../page-nation/pageNation.js";
 import {pageShowCards} from "../../../constants/contants.js";
 
@@ -85,6 +85,7 @@ export async function cardBtnOption(i) {
 
     courses.splice(delIndex, 1); // i번째 요소 삭제
     localStorage.setItem("courses", JSON.stringify(courses)); // 로컬스토리지 업데이트
+    setUrlParams('page', '1');
     listInit();
     if (filtered.length % pageShowCards === 0 || courses.length === 0) {
       pageNationInit();
@@ -120,5 +121,3 @@ export async function cardBtnOption(i) {
     document.getElementById("detailLecture").classList.remove("active");
   };
 }
-
-

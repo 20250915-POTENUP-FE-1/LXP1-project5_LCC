@@ -45,6 +45,9 @@ export function settingCloseModal(modal) {
  * */
 function closeModal(modal) {
   modal.style.display = "none";
+  document.getElementById("forPreview").innerHTML = `<img id="preview-box" src="/src/img/img_class_thumbnail_no.svg" style="height: 164px; width: 232px;"
+               alt="이미지 없음"/>`;
+
   if (modal.querySelectorAll("form")) {
     modal.querySelectorAll("form").forEach((form) => {
       form.reset();

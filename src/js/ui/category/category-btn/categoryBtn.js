@@ -14,12 +14,12 @@ export async function categoryBtnTemplate(value) {
   const doc = parser.parseFromString(htmlText, "text/html");
   const chip = doc.querySelector(".category-chip");
 
-  const category = await getUrlParams('category');
+  const category = (await getUrlParams('category'))?.toLowerCase();
 
   chip.id = value.key;
   chip.textContent = value.value;
   chip.dataset.key = value.key;
-  if (value.key === category) chip.classList.add('is-active'); else if (category == null && value.key === 'all') {
+  if (value.key.toLowerCase() === category) chip.classList.add('is-active'); else if (category == null && value.key.toLowerCase() === 'all') {
     chip.classList.add('is-active');
   }
 

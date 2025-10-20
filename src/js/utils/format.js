@@ -25,7 +25,6 @@ export function applyLevelUI(levelEl, levelValue) {
 
 /** 카테고리 키 정규화 */
 function normalizeCategory(cat) {
-  console.log(cat);
   const c = String(cat || '').trim().toUpperCase();
   // 흔한 변형도 AI로 정규화
   if (c === 'AI' || c === 'A.I' || c === 'A I') return 'AI';

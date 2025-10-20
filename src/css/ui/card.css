@@ -42,9 +42,11 @@
 
 
 .card {
-  border: 0;
   width: 288px;
+  max-width: 288px;
+  overflow: hidden;
   padding: 16px;
+  /*height: 340px;*/
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -54,6 +56,8 @@
   text-decoration: none;
   background: #FFF;
   transition: opacity 0.2s;
+  transition: border-color 0.1s;
+
 }
 
 .card:hover {
@@ -101,16 +105,22 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  text-align: start;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 253px; /* card 내부 너비에 맞게 설정 */
 }
 
 .introduce {
-  width: 227px;
-  height: 44px; /* ✅ 항상 높이 고정 */
+  width: 253px;
+  height: 44px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: ; /* 2줄까지만 표시 */
-  overflow: hidden; /* 넘치는 텍스트 숨김 */
-  flex: 1 0 0;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #666;
   font-family: Pretendard;
   font-size: 14px;
