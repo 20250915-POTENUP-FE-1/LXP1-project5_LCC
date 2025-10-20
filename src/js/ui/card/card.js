@@ -43,7 +43,7 @@ export async function cardTemplate(course) {
   btn.id = `card-${course.id}`;
   btn.title = String(course.created);
   btn.querySelector("img").src = course.thumbnail;
-  btn.querySelector(".lecture-name").textContent = course.lectureName + `  id: ${course.id}`;
+  btn.querySelector(".lecture-name").textContent = course.lectureName;
   btn.querySelector(".introduce").textContent = course.introduce;
 
   const levelEl = btn.querySelector('.level');
