@@ -149,7 +149,7 @@ function updateCard(cardNode, data) {
   }
 
   const nameEl = cardNode.querySelector('.lecture-name');
-  if (nameEl) nameEl.textContent = `${data.lectureName}  id: ${data.id}` ?? '';
+  if (nameEl) nameEl.textContent = data.lectureName ?? '';
 
   const introEl = cardNode.querySelector('.introduce');
   if (introEl) introEl.textContent = data.introduce ?? '';
